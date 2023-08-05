@@ -10,36 +10,36 @@ import java.util.Map;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
-//    @Autowired
-//    private SubjectService subjectService;
-//
-//    @Override
-//    public List<Subject> getAllSubject() {
-//        return null;
-//    }
-//
-//    @Override
-//    public Subject getSubjectById(String id) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Subject saveSubject(Map<String, String> map) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Subject updateSubject(Subject subject) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void deletSubject(String id) {
-//
-//    }
-//
-//    @Override
-//    public List<Subject> getMembersBySubjectNameContainingIgnoreCase(String subjectName) {
-//        return null;
-//    }
+    @Autowired
+    private SubjectService subjectService;
+
+    @Override
+    public List<Subject> getAllSubject() {
+        return null;
+    }
+
+    @Override
+    public Subject getSubjectById(String id) {
+        return null;
+    }
+
+    @Override
+    public Subject saveSubject(Map<String, String> map) {
+        return null;
+    }
+
+    @Override
+    public Subject updateSubject(Subject subject) {
+        return null;
+    }
+
+    @Override
+    public void deletSubject(String id) {
+
+    }
+
+    @Override
+    public List<Subject> getMembersBySubjectNameContainingIgnoreCase(String subjectName) {
+        return null;
+    }
 }
