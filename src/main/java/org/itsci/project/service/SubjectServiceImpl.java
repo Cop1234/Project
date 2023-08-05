@@ -11,36 +11,49 @@ import java.util.Map;
 @Service
 public class SubjectServiceImpl implements SubjectService {
     @Autowired
-    private  SubjectRepository subjectRepository;
+    private SubjectRepository subjectRepository;
 
-    @Override
-    public List<Subject> getAllSubject() {
-        return subjectRepository.findAll();
-    }
-
-    @Override
-    public Subject getSubjectById(String subjectId) {
-        return subjectRepository.getReferenceById(subjectId);
-    }
-
+//    @Override
+//    public List<Subject> getAllSubject() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Subject getSubjectById(String id) {
+//        return null;
+//    }
+//
     @Override
     public Subject saveSubject(Map<String, String> map) {
-        return null;
-    }
+        String id = map.get("id");
+        String subjectId = map.get("subjectId");
+        String subjectName = map.get("subjectName");
+        String detail = map.get("detail");
+        String credit = map.get("credit");
 
-    @Override
-    public Subject updateSubject(Subject subject) {
-        return null;
-    }
+        Long idConvert = Long.parseLong(id);
+        int creditConvert = Integer.parseInt(credit);
 
-    @Override
-    public void deletSubject(String id) {
+        //Create new object
+        Subject subject = new Subject(idConvert,subjectId,subjectName,detail,creditConvert);
 
+        //Save Object to DB
+        return subjectRepository.save(subject);
     }
-
-    @Override
-    public List<Subject> getMembersBySubjectNameContainingIgnoreCase(String subjectName) {
-        return null;
-    }
+//
+//    @Override
+//    public Subject updateSubject(Subject subject) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void deletSubject(String id) {
+//
+//    }
+//
+//    @Override
+//    public List<Subject> getMembersBySubjectNameContainingIgnoreCase(String subjectName) {
+//        return null;
+//    }
     //
 }

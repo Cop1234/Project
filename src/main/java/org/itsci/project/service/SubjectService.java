@@ -8,25 +8,22 @@ import java.util.Map;
 public interface SubjectService {
     //CRUD 5 KINDS
 
-    //GET ALL
-    List<Subject> getAllSubject ();
-
-
-    //GET BY ID
-    Subject getSubjectById(String id);
-
-
-
+//    //GET ALL
+//    List<Subject> getAllSubject ();
+//
+//    //GET BY ID
+//    Subject getSubjectById(String id);
+//
     //CREATE
     Subject saveSubject(Map<String,String> map);
-
-    //Update
-    Subject updateSubject (Subject subject);
-
-    //Delete
-    void deletSubject(String id);
-
-    //GET BY CONTAINING NAME
-    List<Subject> getMembersBySubjectNameContainingIgnoreCase (String subjectName);
+//
+//    //Update
+//    Subject updateSubject (Subject subject);
+//
+//    //Delete
+//    void deletSubject(String id);
+//
+//    //GET BY CONTAINING NAME
+//    List<Subject> getMembersBySubjectNameContainingIgnoreCase (String subjectName);
 
 }

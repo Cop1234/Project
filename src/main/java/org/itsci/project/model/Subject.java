@@ -30,8 +30,4 @@ public class Subject {
 	private String detail;
 	private int credit;
 
-
-//	public Subject(String subjectId, String subjectName, String detail, int credit) {
-//		this.subjectId = subjectId;
-//	}
 }
