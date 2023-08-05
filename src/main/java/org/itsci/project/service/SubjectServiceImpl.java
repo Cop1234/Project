@@ -11,16 +11,16 @@ import java.util.Map;
 @Service
 public class SubjectServiceImpl implements SubjectService {
     @Autowired
-    private SubjectService subjectService;
+    private  SubjectRepository subjectRepository;
 
     @Override
     public List<Subject> getAllSubject() {
-        return null;
+        return subjectRepository.findAll();
     }
 
     @Override
-    public Subject getSubjectById(String id) {
-        return null;
+    public Subject getSubjectById(String subjectId) {
+        return subjectRepository.getReferenceById(subjectId);
     }
 
     @Override

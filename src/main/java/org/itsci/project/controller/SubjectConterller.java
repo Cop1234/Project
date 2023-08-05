@@ -18,19 +18,20 @@ import java.util.Map;
 @RequestMapping("/subject")
 public class SubjectConterller {
 
-//    @Autowired
-//    private SubjectService subjectService;
-//
-//    @RequestMapping("/list")
-//    public ResponseEntity listAllSubject (){
-//        try {
-//            List<Subject> subjects = subjectService.getAllSubject();
-//            return new ResponseEntity<>(subjects , HttpStatus.OK);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return new ResponseEntity<>("Failed to list Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @Autowired
+    private SubjectService subjectService;
+
+    //listSubject
+    @RequestMapping("/list")
+    public ResponseEntity listAllSubject (){
+        try {
+            List<Subject> subjects = subjectService.getAllSubject();
+            return new ResponseEntity<>(subjects , HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to list Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 //    @RequestMapping("/getbyid/{memberId}")
 //    public ResponseEntity getMemberById (@PathVariable("memberId") String memberId){
@@ -42,7 +43,7 @@ public class SubjectConterller {
 //            return new ResponseEntity<>("Failed to get Member!", HttpStatus.INTERNAL_SERVER_ERROR);
 //        }
 //    }
-
+//
 //    @RequestMapping("/add")
 //    public ResponseEntity addMember(@RequestBody Map<String,String> map){
 //        try {
