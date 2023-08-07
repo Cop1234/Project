@@ -40,7 +40,7 @@ public class SubjectConterller {
             return new ResponseEntity<>(subject , HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to get subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to get Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -51,7 +51,18 @@ public class SubjectConterller {
             return new ResponseEntity<>(member, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to Add Member!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to Add Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping("/update")
+    public ResponseEntity updateMember(@RequestBody Subject subject) {
+        try {
+            Subject updateSubject = subjectService.updateSubject(subject);
+            return new ResponseEntity<>(updateSubject, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to update Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
