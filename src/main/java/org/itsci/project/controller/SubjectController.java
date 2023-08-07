@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/subject")
-public class SubjectConterller {
+public class SubjectController {
 
     @Autowired
     private SubjectService subjectService;
