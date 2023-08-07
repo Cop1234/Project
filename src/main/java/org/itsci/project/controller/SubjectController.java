@@ -30,6 +30,7 @@ public class SubjectController {
         }
     }
 
+    //getid
     @RequestMapping("/getbyid/{subjectId}")
     public ResponseEntity getMemberById (@PathVariable("subjectId") String subjectId){
         try {
@@ -41,17 +42,19 @@ public class SubjectController {
         }
     }
 
+    //add subject
     @RequestMapping("/add")
     public ResponseEntity addMember(@RequestBody Map<String,String> map){
         try {
-            Subject member = subjectService.saveSubject(map);
-            return new ResponseEntity<>(member, HttpStatus.OK);
+            Subject subject = subjectService.saveSubject(map);
+            return new ResponseEntity<>(subject, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Failed to Add Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    //ubdate subject
     @RequestMapping("/update")
     public ResponseEntity updateMember(@RequestBody Subject subject) {
         try {
@@ -63,6 +66,7 @@ public class SubjectController {
         }
     }
 
+    //delete subject
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteMember (@PathVariable("id") String id){
         try {
@@ -76,6 +80,18 @@ public class SubjectController {
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Failed to get Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //หาข้อมูลทั้งหมดด้วยตัวอักษร
+    @GetMapping("/getbycontname/{subjectName}")
+    public ResponseEntity getSubjectsBySubjectNameContainingIgnoreCase (@PathVariable("subjectName") String subjectName){
+        try {
+            List<Subject> subjects = subjectService.getSubjectsBySubjectNameContainingIgnoreCase(subjectName);
+            return new ResponseEntity<>(subjects, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to getSubject by name", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
