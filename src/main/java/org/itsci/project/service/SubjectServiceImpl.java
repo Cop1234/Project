@@ -13,16 +13,16 @@ public class SubjectServiceImpl implements SubjectService {
     @Autowired
     private SubjectRepository subjectRepository;
 
-//    @Override
-//    public List<Subject> getAllSubject() {
-//        return null;
-//    }
-//
-//    @Override
-//    public Subject getSubjectById(String id) {
-//        return null;
-//    }
-//
+    @Override
+    public List<Subject> getAllSubject() {
+        return subjectRepository.findAll();
+    }
+
+    @Override
+    public Subject getSubjectById(String subjectId) {
+        return subjectRepository.getReferenceById(subjectId);
+    }
+
     @Override
     public Subject saveSubject(Map<String, String> map) {
         String id = map.get("id");
@@ -40,20 +40,22 @@ public class SubjectServiceImpl implements SubjectService {
         //Save Object to DB
         return subjectRepository.save(subject);
     }
-//
-//    @Override
-//    public Subject updateSubject(Subject subject) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void deletSubject(String id) {
-//
-//    }
-//
-//    @Override
-//    public List<Subject> getMembersBySubjectNameContainingIgnoreCase(String subjectName) {
-//        return null;
-//    }
-    //
+
+    @Override
+    public Subject updateSubject(Subject subject) {
+        return subjectRepository.save(subject);
+    }
+
+    @Override
+    public void deletSubject(String id) {
+        Subject subject= subjectRepository.getReferenceById(id);
+        subjectRepository.delete(subject);
+
+    }
+
+    @Override
+    public List<Subject> getMembersBySubjectNameContainingIgnoreCase(String subjectName) {
+        return subjectRepository.getMembersBySubjectNameContainingIgnoreCase(subjectName);
+    }
+
 }

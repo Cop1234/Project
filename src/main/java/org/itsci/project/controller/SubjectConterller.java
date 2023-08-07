@@ -33,25 +33,27 @@ public class SubjectConterller {
         }
     }
 
-//    @RequestMapping("/getbyid/{memberId}")
-//    public ResponseEntity getMemberById (@PathVariable("memberId") String memberId){
-//        try {
-//            Subject subject = subjectService.getSubjectById(subjectId);
-//            return new ResponseEntity<>(subject , HttpStatus.OK);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return new ResponseEntity<>("Failed to get Member!", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//
-//    @RequestMapping("/add")
-//    public ResponseEntity addMember(@RequestBody Map<String,String> map){
-//        try {
-//            Subject member = subjectService.saveSubject(map);
-//            return new ResponseEntity<>(member, HttpStatus.OK);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return new ResponseEntity<>("Failed to Add Member!", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @RequestMapping("/getbyid/{subjectId}")
+    public ResponseEntity getMemberById (@PathVariable("subjectId") String subjectId){
+        try {
+            Subject subject = subjectService.getSubjectById(subjectId);
+            return new ResponseEntity<>(subject , HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to get subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping("/add")
+    public ResponseEntity addMember(@RequestBody Map<String,String> map){
+        try {
+            Subject member = subjectService.saveSubject(map);
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to Add Member!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
