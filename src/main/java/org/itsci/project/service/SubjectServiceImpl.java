@@ -48,8 +48,10 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public void deletSubject(String id) {
-        Subject subject= subjectRepository.getReferenceById(id);
-        subjectRepository.delete(subject);
+        Subject Id= subjectRepository.getReferenceById(id);
+
+        subjectRepository.delete(Id);
+        subjectRepository.findAll();
 
     }
 

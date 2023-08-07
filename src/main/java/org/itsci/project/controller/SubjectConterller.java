@@ -6,10 +6,7 @@ import org.itsci.project.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -65,6 +62,23 @@ public class SubjectConterller {
             return new ResponseEntity<>("Failed to update Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteMember (@PathVariable("id") String id){
+        try {
+            //เรียก SubjectById
+            Subject subject = subjectService.getSubjectById(id);
+            String subjectId = subject.getSubjectId();
+            //ลบ
+            subjectService.deletSubject(id);
+
+            return new ResponseEntity<>("Subject " + subjectId + " was deleted!", HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to get Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
 }
