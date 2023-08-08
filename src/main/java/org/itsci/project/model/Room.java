@@ -16,13 +16,14 @@ public class Room {
 	
 	@Id
 	private Long id;
+
 	private String roomName;
 	private String building;
 	private double latitude;
 	private double longitude;
 	
-	@ManyToOne
-    @JoinColumn(name="attenscheduleID", nullable=false)
-    private AttendanceSchedule attendanceschedule;
+//	@ManyToOne
+//    @JoinColumn(name="attenscheduleID", nullable=false)
+//    private AttendanceSchedule attendanceschedule;
 
 }

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,6 +29,14 @@ public class AttendanceSchedule {
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name="sectionid", nullable=false)
     private Section section;
+
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@JoinColumn(name="roomid", nullable=false)
+	private Room room;
+
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name="roomName")
+//	private List<Room> room;
 	
 
 }
