@@ -1,6 +1,5 @@
 package org.itsci.project.controller;
 
-
 import org.itsci.project.model.Subject;
 import org.itsci.project.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,7 @@ public class SubjectController {
             return new ResponseEntity<>("Subject " + subjectId + " was deleted!", HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to get Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to delete Subject by id!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

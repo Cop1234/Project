@@ -3,10 +3,12 @@ package org.itsci.project.service;
 import org.itsci.project.model.Room;
 import org.itsci.project.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class RoomServiceImpl implements RoomService{
 
     @Autowired
