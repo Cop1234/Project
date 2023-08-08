@@ -24,6 +24,6 @@ public interface SubjectService {
     void deletSubject(String id);
 
     //GET BY CONTAINING NAME
-    List<Subject> getMembersBySubjectNameContainingIgnoreCase (String subjectName);
+    List<Subject> getSubjectsBySubjectNameContainingIgnoreCase (String subjectName);
 
 }
