@@ -54,7 +54,7 @@ public class SubjectController {
     }
 
     //ubdate subject
-    @RequestMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity updateMember(@RequestBody Subject subject) {
         try {
             Subject updateSubject = subjectService.updateSubject(subject);

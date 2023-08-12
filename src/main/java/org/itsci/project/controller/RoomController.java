@@ -52,7 +52,7 @@ public class RoomController {
         }
     }
 
-    @RequestMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity update_Room (@RequestBody Room room){
         try {
             Room update_room = roomService.update_Room(room);
@@ -63,7 +63,7 @@ public class RoomController {
         }
     }
 
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity delet_Room (@PathVariable("id") String id){
         try {
             Room room = roomService.get_RoomById(id);
