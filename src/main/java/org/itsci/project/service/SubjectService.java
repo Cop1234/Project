@@ -9,19 +9,19 @@ public interface SubjectService {
     //CRUD 5 KINDS
 
     //GET ALL
-    List<Subject> getAllSubject ();
+    List<Subject> get_ListDataSubject ();
 
     //GET BY ID
-    Subject getSubjectById(String id);
+    Subject get_DataSubject(String id);
 
     //CREATE
-    Subject saveSubject(Map<String,String> map);
+    Subject add_DataSubject(Map<String,String> map);
 
     //Update
-    Subject updateSubject (Subject subject);
+    Subject update_DataSubject (Subject subject);
 
     //Delete
-    void deletSubject(String id);
+    void delet_Subject(String id);
 
     //GET BY CONTAINING NAME
     List<Subject> getSubjectsBySubjectNameContainingIgnoreCase (String subjectName);

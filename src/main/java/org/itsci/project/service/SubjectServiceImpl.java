@@ -14,17 +14,17 @@ public class SubjectServiceImpl implements SubjectService {
     private SubjectRepository subjectRepository;
 
     @Override
-    public List<Subject> getAllSubject() {
+    public List<Subject> get_ListDataSubject() {
         return subjectRepository.findAll();
     }
 
     @Override
-    public Subject getSubjectById(String subjectId) {
+    public Subject get_DataSubject(String subjectId) {
         return subjectRepository.getReferenceById(subjectId);
     }
 
     @Override
-    public Subject saveSubject(Map<String, String> map) {
+    public Subject add_DataSubject(Map<String, String> map) {
         String id = map.get("id");
         String subjectId = map.get("subjectId");
         String subjectName = map.get("subjectName");
@@ -42,12 +42,12 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject updateSubject(Subject subject) {
+    public Subject update_DataSubject(Subject subject) {
         return subjectRepository.save(subject);
     }
 
     @Override
-    public void deletSubject(String id) {
+    public void delet_Subject(String id) {
         Subject Id= subjectRepository.getReferenceById(id);
 
         subjectRepository.delete(Id);
