@@ -51,8 +51,9 @@ public class UserServicempl implements UserService {
         login.setUsername("MJU"+userid);
         login.setPassword("MJU@"+fname);
 
-
         loginRepository.save(login);
+
+
 
         User user = new User();
         User users =  new User(user.getId(),userid,typeuser,email,fname,lname,birthdates,gender,login);
@@ -66,6 +67,11 @@ public class UserServicempl implements UserService {
 
         //Save Object to DB
         return teacherRepository.save(users);
+    }
+
+    @Override
+    public User update_Teacher(User user) {
+        return teacherRepository.save(user);
     }
 
 

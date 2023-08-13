@@ -7,10 +7,7 @@ import org.itsci.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -53,7 +50,19 @@ public class TeacherController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to Add Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to Add user!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //ubdate subject
+    @PutMapping("/update")
+    public ResponseEntity update_Teacher(@RequestBody User users) {
+        try {
+            User user = teacherService.update_Teacher(users);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to update user!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
