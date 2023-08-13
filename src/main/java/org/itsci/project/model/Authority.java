@@ -24,7 +24,7 @@ public class Authority {
 	@JoinTable(
 	  name = "Authories_logins",
 	  joinColumns = @JoinColumn(name = "authorityID"),
-	  inverseJoinColumns = @JoinColumn(name = "username"))
+	  inverseJoinColumns = @JoinColumn(name = "loginID"))
 	private Set<Login> logins;
 
 	

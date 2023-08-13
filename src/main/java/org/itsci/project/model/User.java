@@ -19,6 +19,7 @@ public class User {
 
 	@Id
 	private Long id;
+	private String userid;
 	private String typeuser;
 	private String email;
 	private String fname;
