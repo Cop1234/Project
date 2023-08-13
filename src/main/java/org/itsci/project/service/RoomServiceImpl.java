@@ -26,17 +26,19 @@ public class RoomServiceImpl implements RoomService{
 
     @Override
     public Room add_Room(Map<String, String> map) {
-        String id = map.get("id");
         String roomName = map.get("roomName");
         String building = map.get("building");
         String latitude = map.get("latitude");
         String longitude = map.get("longitude");
 
-        Long idConvert = Long.parseLong(id);
         Double latitudeConvert = Double.parseDouble(latitude);
         Double longitudeConvert = Double.parseDouble(longitude);
 
-        Room room = new Room(idConvert,roomName,building,latitudeConvert,longitudeConvert);
+        Room room = new Room();
+        room.setRoomName(roomName);
+        room.setBuilding(building);
+        room.setLatitude(latitudeConvert);
+        room.setLongitude(longitudeConvert);
 
         return roomRepository.save(room);
     }
