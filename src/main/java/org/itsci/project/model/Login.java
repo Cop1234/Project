@@ -25,4 +25,5 @@ public class Login {
 
 	@ManyToMany(mappedBy = "logins")
 	private Set<Authority> authorities;
+
 }

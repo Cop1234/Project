@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @Table(name = "user")
@@ -18,6 +17,7 @@ import java.util.Set;
 public class User {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 	private String userid;
 	private String typeuser;
@@ -30,6 +30,7 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "username")
 	private Login login;
+
 
 
 }
