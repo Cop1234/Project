@@ -2,10 +2,7 @@ package org.itsci.project.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +20,7 @@ import java.util.Set;
 public class Subject {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
 	private String subjectId;

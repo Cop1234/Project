@@ -1,5 +1,6 @@
 package org.itsci.project.service;
 
+import org.itsci.project.model.Login;
 import org.itsci.project.model.Subject;
 import org.itsci.project.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +26,22 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Subject add_DataSubject(Map<String, String> map) {
-        String id = map.get("id");
+
+
         String subjectId = map.get("subjectId");
         String subjectName = map.get("subjectName");
         String detail = map.get("detail");
         String credit = map.get("credit");
 
-        Long idConvert = Long.parseLong(id);
+
         int creditConvert = Integer.parseInt(credit);
 
         //Create new object
-        Subject subject = new Subject(idConvert,subjectId,subjectName,detail,creditConvert);
-
+        Subject subject=new Subject();
+        subject.setSubjectId(subjectId);
+        subject.setSubjectName(subjectName);
+        subject.setDetail(detail);
+        subject.setCredit(creditConvert);
         //Save Object to DB
         return subjectRepository.save(subject);
     }
