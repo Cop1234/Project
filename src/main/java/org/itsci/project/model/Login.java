@@ -17,7 +17,9 @@ import java.util.Set;
 public class Login {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
+
 	private String username;
 	private String password;
 

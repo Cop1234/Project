@@ -10,6 +10,7 @@ import java.util.Map;
 
 @Service
 public class LoginServiceImpl implements LoginService{
+
     @Autowired
     private LoginRepository loginRepository;
 
@@ -25,7 +26,14 @@ public class LoginServiceImpl implements LoginService{
 
     @Override
     public Login add_Login(Map<String, String> map) {
-        return null;
+        String username = map.get("username");
+        String password = map.get("password");
+
+        Login login = new Login();
+        login.setUsername(username);
+        login.setPassword(password);
+
+        return loginRepository.save(login);
     }
 
     @Override
