@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface LoginRepository extends JpaRepository<Login, String> {
     List<Login> getLoginByUsernameContainingIgnoreCase (String username);
+
 }

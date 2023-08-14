@@ -3,7 +3,6 @@ package org.itsci.project.service;
 
 
 import org.itsci.project.model.Login;
-import org.itsci.project.model.Subject;
 import org.itsci.project.model.User;
 import org.itsci.project.repository.LoginRepository;
 import org.itsci.project.repository.TeacherRepository;
@@ -65,12 +64,13 @@ public class UserServicempl implements UserService {
         return teacherRepository.save(user);
     }
 
-//    @Override
-//    public void delet_Teacher(String id) {
-//        User Id = teacherRepository.getReferenceById(id);
-//        teacherRepository.delete(Id);
-//        teacherRepository.findAll();
-//    }
+    @Override
+    public void delet_Teacher(String id) {
+        User Id = teacherRepository.getReferenceById(id);
+        teacherRepository.delete(Id);
+        teacherRepository.findAll();
+//        return  teacherRepository.delete(Id);
+    }
 
 
 }
