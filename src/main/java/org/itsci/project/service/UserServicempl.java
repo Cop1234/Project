@@ -72,5 +72,10 @@ public class UserServicempl implements UserService {
 //        return  teacherRepository.delete(Id);
     }
 
+    @Override
+    public List<User> getTeacherByfnameContainingIgnoreCase(String fname) {
+        return teacherRepository.getTeacherByfnameContainingIgnoreCase(fname);
+    }
+
 
 }

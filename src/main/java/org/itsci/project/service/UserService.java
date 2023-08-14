@@ -22,6 +22,6 @@ public interface UserService {
     //Delete
     void delet_Teacher(String id);
 
-    //GET BY CONTAINING NAME
-//    List<User> getTeacherByfnameContainingIgnoreCase (String fname);
+//    GET BY CONTAINING NAME
+    List<User> getTeacherByfnameContainingIgnoreCase (String fname);
 }

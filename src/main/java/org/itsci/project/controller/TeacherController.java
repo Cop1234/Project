@@ -87,6 +87,16 @@ public class TeacherController {
         }
     }
 
-
+    //หาข้อมูลทั้งหมดด้วยตัวอักษร
+    @GetMapping("/getbycontname/{fname}")
+    public ResponseEntity getSubjectsBySubjectNameContainingIgnoreCase (@PathVariable("fname") String fname){
+        try {
+            List<User> users = teacherService.getTeacherByfnameContainingIgnoreCase(fname);
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to getUser by name", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
