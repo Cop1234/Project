@@ -23,11 +23,12 @@ public class TeacherController {
     @RequestMapping("/list")
     public ResponseEntity get_ListTeacher (){
         try {
-            List<User> users = teacherService.get_ListTeacher();
+            String typeuser = "T";
+            List<User> users = teacherService.get_ListTeacher(typeuser);
             return new ResponseEntity<>(users , HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to list user!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to list teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -39,7 +40,7 @@ public class TeacherController {
             return new ResponseEntity<>(users , HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to get Subject!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to get Teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -50,7 +51,7 @@ public class TeacherController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to Add user!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to Add Teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -62,7 +63,7 @@ public class TeacherController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to update user!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to update Teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -3,6 +3,7 @@ package org.itsci.project.service;
 
 
 import org.itsci.project.model.Login;
+import org.itsci.project.model.Subject;
 import org.itsci.project.model.User;
 import org.itsci.project.repository.LoginRepository;
 import org.itsci.project.repository.TeacherRepository;
@@ -25,13 +26,13 @@ public class UserServicempl implements UserService {
     private LoginRepository loginRepository;
 
     @Override
-    public List<User> get_ListTeacher() {
-        return teacherRepository.findAll();
+    public List<User> get_ListTeacher(String typeuser) {
+        return teacherRepository.getTeacherBytypeuserContainingIgnoreCase(typeuser);
     }
 
     @Override
-    public User get_Teacher(String fname) {
-        return teacherRepository.getReferenceById(fname);
+    public User get_Teacher(String id) {
+        return teacherRepository.getReferenceById(id);
     }
 
     @Override
@@ -41,8 +42,8 @@ public class UserServicempl implements UserService {
          String email = map.get("email");
          String fname = map.get("fname");
          String lname = map.get("lname");
-        DateFormat Day = new SimpleDateFormat("dd/mm/yyyy");
-        String birthdate = map.get("birthdate");
+         DateFormat Day = new SimpleDateFormat("dd/mm/yyyy");
+         String birthdate = map.get("birthdate");
          Date birthdates = Day.parse(birthdate);
          String gender = map.get("gender");
 
@@ -50,20 +51,10 @@ public class UserServicempl implements UserService {
         Login login = new Login();
         login.setUsername("MJU"+userid);
         login.setPassword("MJU@"+fname);
-
         loginRepository.save(login);
-
-
 
         User user = new User();
         User users =  new User(user.getId(),userid,typeuser,email,fname,lname,birthdates,gender,login);
-//        user.setUserid(userid);
-//        user.setTypeuser(typeuser);
-//        user.setEmail(email);
-//        user.setFname(fname);
-//        user.setLname(lname);
-//        user.setBirthdate(birthdates);
-//        user.setGender(gender);
 
         //Save Object to DB
         return teacherRepository.save(users);
@@ -73,6 +64,13 @@ public class UserServicempl implements UserService {
     public User update_Teacher(User user) {
         return teacherRepository.save(user);
     }
+
+//    @Override
+//    public void delet_Teacher(String id) {
+//        User Id = teacherRepository.getReferenceById(id);
+//        teacherRepository.delete(Id);
+//        teacherRepository.findAll();
+//    }
 
 
 }

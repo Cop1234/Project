@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface UserService {
 
-    List<User> get_ListTeacher ();
+    List<User> get_ListTeacher (String typeuser);
 
     //GET BY ID
     User get_Teacher(String id);
@@ -19,10 +19,10 @@ public interface UserService {
 
     //Update
     User update_Teacher (User user);
-//
-//    //Delete
+
+    //Delete
 //    void delet_Teacher(String id);
-//
+
 //    //GET BY CONTAINING NAME
-//    List<Subject> getUserByfnameContainingIgnoreCase (String subjectName);
+//    List<Subject> getTeacherByfnameContainingIgnoreCase (String subjectName);
 }
