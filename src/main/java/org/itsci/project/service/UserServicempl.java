@@ -19,26 +19,19 @@ import java.util.Map;
 @Service
 public class UserServicempl implements UserService {
 
-
     @Autowired
     private TeacherRepository teacherRepository;
-
     @Autowired
     private LoginRepository loginRepository;
 
-//    @Override
-//    public List<User> get_ListTeacher() {
-//        return teacherRepository.findAll();
-//    }
-
     @Override
     public List<User> get_ListTeacher(String typeuser) {
-        return teacherRepository.findAll();
+        return teacherRepository.getTeacherBytypeuserContainingIgnoreCase(typeuser);
     }
 
     @Override
-    public User get_Teacher(String fname) {
-        return teacherRepository.getReferenceById(fname);
+    public User get_Teacher(String id) {
+        return teacherRepository.getReferenceById(id);
     }
 
     @Override
@@ -57,18 +50,10 @@ public class UserServicempl implements UserService {
         Login login = new Login();
         login.setUsername("MJU"+userid);
         login.setPassword("MJU@"+fname);
-
         loginRepository.save(login);
 
         User user = new User();
         User users =  new User(user.getId(),userid,typeuser,email,fname,lname,birthdates,gender,login);
-//        user.setUserid(userid);
-//        user.setTypeuser(typeuser);
-//        user.setEmail(email);
-//        user.setFname(fname);
-//        user.setLname(lname);
-//        user.setBirthdate(birthdates);
-//        user.setGender(gender);
 
         //Save Object to DB
         return teacherRepository.save(users);
@@ -77,6 +62,19 @@ public class UserServicempl implements UserService {
     @Override
     public User update_Teacher(User user) {
         return teacherRepository.save(user);
+    }
+
+    @Override
+    public void delet_Teacher(String id) {
+        User Id = teacherRepository.getReferenceById(id);
+        teacherRepository.delete(Id);
+        teacherRepository.findAll();
+//        return  teacherRepository.delete(Id);
+    }
+
+    @Override
+    public List<User> getTeacherByfnameContainingIgnoreCase(String fname) {
+        return teacherRepository.getTeacherByfnameContainingIgnoreCase(fname);
     }
 
 

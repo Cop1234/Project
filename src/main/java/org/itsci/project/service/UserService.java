@@ -1,6 +1,5 @@
 package org.itsci.project.service;
 
-import org.itsci.project.model.Login;
 import org.itsci.project.model.User;
 
 import java.text.ParseException;
@@ -19,10 +18,10 @@ public interface UserService {
 
     //Update
     User update_Teacher (User user);
-//
-//    //Delete
-//    void delet_Teacher(String id);
-//
-//    //GET BY CONTAINING NAME
-//    List<Subject> getUserByfnameContainingIgnoreCase (String subjectName);
+
+    //Delete
+    void delet_Teacher(String id);
+
+//    GET BY CONTAINING NAME
+    List<User> getTeacherByfnameContainingIgnoreCase (String fname);
 }
