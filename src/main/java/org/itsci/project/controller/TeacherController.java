@@ -21,9 +21,9 @@ public class TeacherController {
 
     //listTeacher
     @RequestMapping("/list")
-    public ResponseEntity get_ListTeacher (){
+    public ResponseEntity get_ListTeacher (@PathVariable("typeuser") String typeuser){
         try {
-            List<User> users = teacherService.get_ListTeacher();
+            List<User> users = teacherService.get_ListTeacher(typeuser);
             return new ResponseEntity<>(users , HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();

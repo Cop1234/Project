@@ -10,7 +10,7 @@ public interface LoginService {
     List<Login> get_ListLogin ();
 
     //GET BY ID
-    Login get_Login(String id);
+    Login get_Login(String username);
 
     //CREATE
     Login add_Login(Map<String,String> map);
@@ -23,5 +23,8 @@ public interface LoginService {
 
     //GET BY CONTAINING NAME
     List<Login> getLoginByUsernameContainingIgnoreCase (String username);
+
+    //Login
+    Login do_Login(Map<String,String> map);
 
 }

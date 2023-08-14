@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface UserService {
 
-    List<User> get_ListTeacher ();
+    List<User> get_ListTeacher (String typeuser);
 
     //GET BY ID
     User get_Teacher(String id);
