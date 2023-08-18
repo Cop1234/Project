@@ -19,7 +19,7 @@ public class StudenController {
 
     //listStudent
     @RequestMapping("/list")
-    public ResponseEntity get_ListTeacher (){
+    public ResponseEntity get_ListStudent (){
         try {
             String typeuser = "Student";
             List<User> users = userService.get_ListStudent(typeuser);
