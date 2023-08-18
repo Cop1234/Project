@@ -26,13 +26,10 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Subject add_DataSubject(Map<String, String> map) {
-
-
         String subjectId = map.get("subjectId");
         String subjectName = map.get("subjectName");
         String detail = map.get("detail");
         String credit = map.get("credit");
-
 
         int creditConvert = Integer.parseInt(credit);
 

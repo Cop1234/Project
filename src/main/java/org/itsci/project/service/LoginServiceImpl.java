@@ -5,6 +5,7 @@ import org.itsci.project.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sql.RowSet;
 import java.util.List;
 import java.util.Map;
 
@@ -16,12 +17,12 @@ public class LoginServiceImpl implements LoginService{
 
     @Override
     public List<Login> get_ListLogin() {
-        return null;
+        return loginRepository.findAll();
     }
 
     @Override
-    public Login get_Login(String id) {
-        return null;
+    public Login get_Login(String username) {
+        return loginRepository.getReferenceById(username);
     }
 
     @Override
@@ -49,5 +50,20 @@ public class LoginServiceImpl implements LoginService{
     @Override
     public List<Login> getLoginByUsernameContainingIgnoreCase(String username) {
         return null;
+    }
+
+    @Override
+    public Login do_Login(Map<String,String> map) {
+        String username = map.get("username");
+        String password = map.get("password");
+
+        //Check username
+        Login login = loginRepository.getLoginByUsernameEquals(username);
+
+        if (login != null && login.getPassword().equals(password)){
+            return login;
+        }else {
+            return null;
+        }
     }
 }
