@@ -26,7 +26,7 @@ public class TeacherController {
     @RequestMapping("/list")
     public ResponseEntity get_ListTeacher (){
         try {
-            String typeuser = "T";
+            String typeuser = "Teacher";
             List<User> users = teacherService.get_ListTeacher(typeuser);
             return new ResponseEntity<>(users , HttpStatus.OK);
         }catch (Exception e){

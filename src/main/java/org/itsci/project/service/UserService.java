@@ -8,20 +8,25 @@ import java.util.Map;
 
 public interface UserService {
 
+    //List User teacher All
     List<User> get_ListTeacher (String typeuser);
 
-    //GET BY ID
+    //GET  BY ID (User teacher)
     User get_Teacher(String id);
 
-    //CREATE
+    //CREATE (User teacher)
     User add_Teacher(Map<String,String> map) throws ParseException;
 
-    //Update
+    //Update (User teacher)
     User update_Teacher (User user);
 
-    //Delete
+    //Delete (User teacher)
     void delet_Teacher(String id);
 
-//    GET BY CONTAINING NAME
+    //GET BY CONTAINING NAME (User teacher)
     List<User> getTeacherByfnameContainingIgnoreCase (String fname);
+
+    //List User Student All
+//    List<User> get_ListStudent (String typeuser);
+
 }
