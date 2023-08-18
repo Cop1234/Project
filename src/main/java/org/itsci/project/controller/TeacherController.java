@@ -19,7 +19,7 @@ import java.util.Map;
 public class TeacherController {
 
     @Autowired
-    private UserService teacherService;
+    private UserService userService;
 
 
     //listTeacher
@@ -27,7 +27,7 @@ public class TeacherController {
     public ResponseEntity get_ListTeacher (){
         try {
             String typeuser = "Teacher";
-            List<User> users = teacherService.get_ListTeacher(typeuser);
+            List<User> users = userService.get_ListTeacher(typeuser);
             return new ResponseEntity<>(users , HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class TeacherController {
     @RequestMapping("/getbyid/{id}")
     public ResponseEntity get_Teacher (@PathVariable("id") String id){
         try {
-            User users = teacherService.get_Teacher(id);
+            User users = userService.get_Teacher(id);
             return new ResponseEntity<>(users , HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class TeacherController {
     @RequestMapping("/add")
     public ResponseEntity add_Teacher(@RequestBody Map<String,String> map){
         try {
-            User user = teacherService.add_Teacher(map);
+            User user = userService.add_Teacher(map);
             return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class TeacherController {
     @PutMapping("/update")
     public ResponseEntity update_Teacher(@RequestBody User users) {
         try {
-            User user = teacherService.update_Teacher(users);
+            User user = userService.update_Teacher(users);
             return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
@@ -75,10 +75,10 @@ public class TeacherController {
     public ResponseEntity delet_Teacher (@PathVariable("id") String id){
         try {
             //เรียก SubjectById
-            User users = teacherService.get_Teacher(id);
+            User users = userService.get_Teacher(id);
             String us = users.getUserid();
             //ลบ
-            teacherService.delet_Teacher(id);
+            userService.delet_Teacher(id);
 
             return new ResponseEntity<>("User " + us + " was deleted!", HttpStatus.OK);
         }catch (Exception e){
@@ -91,7 +91,7 @@ public class TeacherController {
     @GetMapping("/getbycontname/{fname}")
     public ResponseEntity getSubjectsBySubjectNameContainingIgnoreCase (@PathVariable("fname") String fname){
         try {
-            List<User> users = teacherService.getTeacherByfnameContainingIgnoreCase(fname);
+            List<User> users = userService.getTeacherByfnameContainingIgnoreCase(fname);
             return new ResponseEntity<>(users, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();

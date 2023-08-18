@@ -27,6 +27,6 @@ public interface UserService {
     List<User> getTeacherByfnameContainingIgnoreCase (String fname);
 
     //List User Student All
-//    List<User> get_ListStudent (String typeuser);
+    List<User> get_ListStudent (String typeuser);
 
 }

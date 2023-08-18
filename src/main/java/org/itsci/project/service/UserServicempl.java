@@ -88,11 +88,13 @@ public class UserServicempl implements UserService {
         return teacherRepository.getTeacherByfnameContainingIgnoreCase(fname);
     }
 
-    //List User teacher All
-//    @Override
-//    public List<User> get_ListStudent(String stuTypeuser) {
-//        return studentRepository.getStudentBytypeuser(stuTypeuser);
-//    }
+
+    //Student
+    //List User Student All
+    @Override
+    public List<User> get_ListStudent(String stuTypeuser) {
+        return studentRepository.getStudentBytypeuser(stuTypeuser);
+    }
 
 
 }
