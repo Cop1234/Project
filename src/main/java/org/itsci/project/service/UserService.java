@@ -1,5 +1,6 @@
 package org.itsci.project.service;
 
+import org.itsci.project.model.Login;
 import org.itsci.project.model.User;
 
 import java.text.ParseException;

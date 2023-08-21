@@ -1,6 +1,7 @@
 package org.itsci.project.controller;
 
 
+import org.itsci.project.model.Login;
 import org.itsci.project.model.Subject;
 import org.itsci.project.model.User;
 import org.itsci.project.repository.TeacherRepository;
@@ -20,7 +21,6 @@ public class TeacherController {
 
     @Autowired
     private UserService userService;
-
 
     //listTeacher
     @RequestMapping("/list")

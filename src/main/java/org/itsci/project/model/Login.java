@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,11 @@ public class Login {
 	private String username;
 	private String password;
 
-	@ManyToMany(mappedBy = "logins")
-	private Set<Authority> authorities;
+	@ManyToMany
+	@JoinTable(
+			name = "authorities_logins",
+			joinColumns = @JoinColumn(name = "Login_id"),
+			inverseJoinColumns = @JoinColumn(name = "authority_id"))
+	private Set<Authority> Role = new HashSet<>();
 
 }

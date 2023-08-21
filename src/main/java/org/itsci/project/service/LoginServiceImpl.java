@@ -1,19 +1,28 @@
 package org.itsci.project.service;
 
+import org.itsci.project.model.Authority;
 import org.itsci.project.model.Login;
+import org.itsci.project.model.User;
+import org.itsci.project.repository.AuthorityRepository;
 import org.itsci.project.repository.LoginRepository;
+import org.itsci.project.repository.TeacherRepository;
+import org.itsci.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.sql.RowSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class LoginServiceImpl implements LoginService{
 
     @Autowired
     private LoginRepository loginRepository;
+
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
     @Override
     public List<Login> get_ListLogin() {
@@ -34,6 +43,17 @@ public class LoginServiceImpl implements LoginService{
         login.setUsername(username);
         login.setPassword(password);
 
+        return loginRepository.save(login);
+    }
+
+    @Override
+    public Login addRoleToLogin(Long id, Long userId) {
+        Set<Authority> roleSet = null;
+        Authority authority = authorityRepository.findById(id).get();
+        Login login = loginRepository.findById(userId).get();
+        roleSet = login.getRole();
+        roleSet.add(authority);
+        login.setRole(roleSet);
         return loginRepository.save(login);
     }
 
@@ -66,4 +86,5 @@ public class LoginServiceImpl implements LoginService{
             return null;
         }
     }
+
 }

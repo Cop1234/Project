@@ -19,7 +19,7 @@ public class LoginController {
     private LoginService loginService;
 
     @RequestMapping("/list")
-    public ResponseEntity get_ListRoom (){
+    public ResponseEntity get_ListLogin (){
         try {
             List<Login> logins = loginService.get_ListLogin();
             return new ResponseEntity<>(logins , HttpStatus.OK);
@@ -49,6 +49,14 @@ public class LoginController {
             e.printStackTrace();
             return new ResponseEntity<>("Failed to Add Login!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PutMapping("/{id}/login_aut/{userId}")
+    public Login addRoleToLogin(
+            @PathVariable Long id,
+            @PathVariable Long userId
+    ){
+        return loginService.addRoleToLogin(id,userId);
     }
 
     @PostMapping("/do_login")

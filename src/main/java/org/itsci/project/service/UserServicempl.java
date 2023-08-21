@@ -2,8 +2,10 @@ package org.itsci.project.service;
 
 
 
+import org.itsci.project.model.Authority;
 import org.itsci.project.model.Login;
 import org.itsci.project.model.User;
+import org.itsci.project.repository.AuthorityRepository;
 import org.itsci.project.repository.LoginRepository;
 import org.itsci.project.repository.StudentRepository;
 import org.itsci.project.repository.TeacherRepository;
@@ -16,16 +18,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class UserServicempl implements UserService {
 
     @Autowired
     private TeacherRepository teacherRepository;
+
     @Autowired
     private StudentRepository studentRepository;
+
     @Autowired
     private LoginRepository loginRepository;
+
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
     //List User teacher All
     @Override
@@ -54,12 +62,22 @@ public class UserServicempl implements UserService {
 
          String[] ps = birthdate.split("/");
          String ps_day = ps[0];
-        String ps_month = ps[1];
-        String ps_year = ps[2];
+         String ps_month = ps[1];
+         String ps_year = ps[2];
         //Create new object
         Login login = new Login();
         login.setUsername("MJU"+userid);
         login.setPassword("MJU@"+ps_day+ps_month+ps_year);
+        loginRepository.save(login);
+
+        //AddRoleForLogin
+        Long TeacherRoleId = Long.parseLong("2");
+        Set<Authority> roleSet = null;
+        Authority authority = authorityRepository.findById(TeacherRoleId).get();
+        login = loginRepository.findById(login.getId()).get();
+        roleSet = login.getRole();
+        roleSet.add(authority);
+        login.setRole(roleSet);
         loginRepository.save(login);
 
         User user = new User();

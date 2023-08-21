@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,12 +21,12 @@ public class Authority {
 	private Long id;
 	private String role;
 
-	@ManyToMany
-	@JoinTable(
-	  name = "Authories_logins",
-	  joinColumns = @JoinColumn(name = "authorityID"),
-	  inverseJoinColumns = @JoinColumn(name = "loginID"))
-	private Set<Login> logins;
+	@ManyToMany (mappedBy = "Role")
+	private Set<Login> username = new HashSet<>();
 
-	
+	public Authority(Long id, String role) {
+		this.id = id;
+		this.role = role;
+	}
 }
+

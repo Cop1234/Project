@@ -31,6 +31,4 @@ public class User {
 	@JoinColumn(name = "username")
 	private Login login;
 
-
-
 }
