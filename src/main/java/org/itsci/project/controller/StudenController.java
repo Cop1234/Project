@@ -5,9 +5,15 @@ import org.itsci.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -30,6 +36,18 @@ public class StudenController {
         }
     }
 
+    @PostMapping("/add")
+    public String uploadExcelFile(@RequestParam("file") MultipartFile file) {
+        try {
+            userService.insert_DataStudent(file);
+            return "File imported successfully!";
+
+        } catch (IOException e) {
+            return "Failed to import file: " + e.getMessage();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
