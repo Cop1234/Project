@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class Course  implements Serializable {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 	
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)

@@ -61,7 +61,7 @@ public class UserServicempl implements UserService {
     @Override
     public User add_Teacher(Map<String, String> map) throws ParseException {
          String userid = map.get("userid");
-         String typeuser = "Teacher";
+         String typeuser = map.get("typeuser");
          String email = map.get("email");
          String fname = map.get("fname");
          String lname = map.get("lname");
@@ -140,8 +140,6 @@ public class UserServicempl implements UserService {
             Date birthdates = Day.parse(birthdate);
             String gender = row.getCell(5).getStringCellValue();
 
-
-
             String[] ps = birthdate.split("/");
             String ps_day = ps[0];
             String ps_month = ps[1];
@@ -161,6 +159,7 @@ public class UserServicempl implements UserService {
             roleSet.add(authority);
             login.setRole(roleSet);
             loginRepository.save(login);
+
             User user = new User();
             user.setUserid(userid);
             user.setEmail(email);

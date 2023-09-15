@@ -1,10 +1,11 @@
 package org.itsci.project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +14,8 @@ import java.util.Set;
 @Table(name = "authority")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Authority {
 
@@ -21,7 +23,8 @@ public class Authority {
 	private Long id;
 	private String role;
 
-	@ManyToMany (mappedBy = "Role")
+	@JsonBackReference
+	@ManyToMany (mappedBy = "Role", fetch = FetchType.LAZY)
 	private Set<Login> username = new HashSet<>();
 
 	public Authority(Long id, String role) {

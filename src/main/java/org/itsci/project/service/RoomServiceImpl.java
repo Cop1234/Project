@@ -51,7 +51,6 @@ public class RoomServiceImpl implements RoomService{
     @Override
     public void delet_Room(String id) {
         Room Id = roomRepository.getReferenceById(id);
-
         roomRepository.delete(Id);
         roomRepository.findAll();
     }

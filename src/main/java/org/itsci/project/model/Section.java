@@ -20,9 +20,12 @@ import java.util.Set;
 public class Section implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
+
 	private Date startTime;
 	private int duration;
+	private String sectionNumber;
 	
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "userID")
