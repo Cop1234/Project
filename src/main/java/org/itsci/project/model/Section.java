@@ -26,6 +26,7 @@ public class Section implements Serializable {
 	private Date startTime;
 	private int duration;
 	private String sectionNumber;
+	private String type;
 	
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "userID")
@@ -34,6 +35,10 @@ public class Section implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "course_id")
 	private Course course;
+
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@JoinColumn(name="roomid", nullable=false)
+	private Room room;
 
 
 }

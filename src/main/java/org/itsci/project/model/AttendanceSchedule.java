@@ -24,15 +24,14 @@ public class AttendanceSchedule {
 	private String subjectID;
 	private String studentID;
 	private int weekNo;
-	private String type;
 
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name="sectionid", nullable=false)
     private Section section;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
-	@JoinColumn(name="roomid", nullable=false)
-	private Room room;
+	//@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	//@JoinColumn(name="roomid", nullable=false)
+	//private Room room;
 
 //	@OneToMany(cascade = CascadeType.ALL)
 //	@JoinColumn(name="roomName")
