@@ -22,9 +22,5 @@ public class Room {
 	private String building;
 	private double latitude;
 	private double longitude;
-	
-//	@ManyToOne
-//    @JoinColumn(name="attenscheduleID", nullable=false)
-//    private AttendanceSchedule attendanceschedule;
 
 }

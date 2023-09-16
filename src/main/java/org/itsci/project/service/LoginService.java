@@ -27,5 +27,7 @@ public interface LoginService {
     //Login
     Login do_Login(Map<String,String> map);
 
+    //AddRole
     Login addRoleToLogin(Long id, Long userId);
+
 }

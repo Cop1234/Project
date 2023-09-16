@@ -1,10 +1,10 @@
 package org.itsci.project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,8 @@ import java.util.Set;
 @Table(name = "logins")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Login {
 
@@ -24,11 +25,15 @@ public class Login {
 	private String username;
 	private String password;
 
-	@ManyToMany
-	@JoinTable(
-			name = "authorities_logins",
-			joinColumns = @JoinColumn(name = "Login_id"),
-			inverseJoinColumns = @JoinColumn(name = "authority_id"))
+	@JsonManagedReference
+	@ManyToMany ( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "authorities_logins",
+			joinColumns = {
+				@JoinColumn(name = "Login_id",referencedColumnName = "id")
+			},
+			inverseJoinColumns = {
+				@JoinColumn(name = "authority_id",referencedColumnName = "id")
+			})
 	private Set<Authority> Role = new HashSet<>();
 
 }
