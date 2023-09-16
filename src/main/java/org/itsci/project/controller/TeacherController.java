@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +65,9 @@ public class TeacherController {
     @PutMapping("/update")
     public ResponseEntity update_Teacher(@RequestBody User users) {
         try {
-            User user = userService.update_Teacher(users);
+
+           User user = userService.update_Teacher(users);
+
             return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();

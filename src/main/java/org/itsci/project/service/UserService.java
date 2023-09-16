@@ -2,6 +2,8 @@ package org.itsci.project.service;
 
 import org.itsci.project.model.Login;
 import org.itsci.project.model.User;
+import org.itsci.project.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

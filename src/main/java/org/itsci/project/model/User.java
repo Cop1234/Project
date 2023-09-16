@@ -28,7 +28,7 @@ public class User {
 	private String gender;
 
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
-	@JoinColumn(name = "username")
+	@JoinColumn(name = "loginid")
 	private Login login;
 
 }
