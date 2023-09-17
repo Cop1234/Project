@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Section implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
-	private Date startTime;
+	private LocalTime startTime;
 	private int duration;
 	private String sectionNumber;
 	private String type;

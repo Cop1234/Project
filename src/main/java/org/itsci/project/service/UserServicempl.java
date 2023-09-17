@@ -91,7 +91,7 @@ public class UserServicempl implements UserService {
         loginRepository.save(login);
 
         User user = new User();
-        User users =  new User(user.getId(),userid,typeuser,email,fname,lname,birthdates,gender,login);
+        User users = new User(user.getId(),userid,typeuser,email,fname,lname,birthdates,gender,login);
 
         //Save Object to DB
         return teacherRepository.save(users);
