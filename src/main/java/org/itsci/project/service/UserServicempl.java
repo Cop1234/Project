@@ -109,6 +109,8 @@ public class UserServicempl implements UserService {
         String lastName = map.get("lname");
         String birthdate = map.get("birthdate");
         String gender = map.get("gender");
+        String loginid = map.get("loginid");
+        String password = map.get("password");
 
         // ค้นหา Teacher ที่ต้องการอัปเดต
         User teacher = teacherRepository.findById(Id).get();
@@ -129,7 +131,19 @@ public class UserServicempl implements UserService {
             teacher.setGender(gender);
 
             // บันทึกข้อมูล Teacher ที่อัปเดตลงในฐานข้อมูล
-            return teacherRepository.save(teacher);
+            teacher = teacherRepository.save(teacher);
+
+            // อัปเดตข้อมูล Login
+            Login login = loginRepository.findById(Long.parseLong(loginid)).get();
+
+            if (login != null) {
+                login.setPassword(password);
+
+                // บันทึกข้อมูล Login ที่อัปเดตลงในฐานข้อมูล
+                login = loginRepository.save(login);
+            }
+
+            return teacher;
         } else {
             // ถ้าไม่พบ Teacher ที่ต้องการอัปเดต
             return null;
