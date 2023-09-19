@@ -24,7 +24,7 @@ public class Authority {
 	private String role;
 
 	@JsonBackReference
-	@ManyToMany (mappedBy = "Role", fetch = FetchType.LAZY)
+	@ManyToMany (mappedBy = "role", fetch = FetchType.LAZY)
 	private Set<Login> username = new HashSet<>();
 
 	public Authority(Long id, String role) {

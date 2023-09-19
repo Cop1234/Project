@@ -61,13 +61,10 @@ public class TeacherController {
         }
     }
 
-    //ubdate subject
     @PutMapping("/update")
-    public ResponseEntity update_Teacher(@RequestBody User users) {
+    public ResponseEntity update_Teacher(@RequestBody Map<String,String> map) {
         try {
-
-           User user = userService.update_Teacher(users);
-
+            User user = userService.update_Teacher(map);
             return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();

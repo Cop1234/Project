@@ -13,6 +13,7 @@ import org.itsci.project.repository.LoginRepository;
 import org.itsci.project.repository.StudentRepository;
 import org.itsci.project.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -97,10 +98,42 @@ public class UserServicempl implements UserService {
         return teacherRepository.save(users);
     }
 
-    //Update User teacher
     @Override
-    public User update_Teacher(User user) {
-        return teacherRepository.save(user);
+    public User update_Teacher(Map<String, String> map) throws ParseException {
+        // รับข้อมูลที่ต้องการอัปเดตจาก map
+        String Id = map.get("id");
+        String userId = map.get("userid");
+        String typeuser = map.get("typeuser");
+        String email = map.get("email");
+        String firstName = map.get("fname");
+        String lastName = map.get("lname");
+        String birthdate = map.get("birthdate");
+        String gender = map.get("gender");
+
+        // ค้นหา Teacher ที่ต้องการอัปเดต
+        User teacher = teacherRepository.findById(Id).get();
+
+        if (teacher != null) {
+            // อัปเดตข้อมูล Teacher
+            teacher.setUserid(userId);
+            teacher.setTypeuser(typeuser);
+            teacher.setEmail(email);
+            teacher.setFname(firstName);
+            teacher.setLname(lastName);
+
+            // อัปเดตวันเกิด
+            DateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date birthDate = dayFormat.parse(birthdate);
+            teacher.setBirthdate(birthDate);
+
+            teacher.setGender(gender);
+
+            // บันทึกข้อมูล Teacher ที่อัปเดตลงในฐานข้อมูล
+            return teacherRepository.save(teacher);
+        } else {
+            // ถ้าไม่พบ Teacher ที่ต้องการอัปเดต
+            return null;
+        }
     }
 
     //Delete User Teacher

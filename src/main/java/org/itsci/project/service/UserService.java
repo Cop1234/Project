@@ -22,8 +22,9 @@ public interface UserService {
     //CREATE (User teacher)
     User add_Teacher(Map<String,String> map) throws ParseException;
 
+    User update_Teacher(Map<String,String> map) throws ParseException;
     //Update (User teacher)
-    User update_Teacher (User user);
+    //User update_Teacher (User user);
 
     //Delete (User teacher)
     void delet_Teacher(String id);

@@ -34,6 +34,6 @@ public class Login {
 			inverseJoinColumns = {
 				@JoinColumn(name = "authority_id",referencedColumnName = "id")
 			})
-	private Set<Authority> Role = new HashSet<>();
+	private Set<Authority> role = new HashSet<>();
 
 }
