@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface AuthorityRepository extends JpaRepository<Authority, String> {
-    Optional <Authority> findById (Long id);
+    Optional<Authority> findById (Long id);
 
     List<Authority> findByRole (String role);
 }

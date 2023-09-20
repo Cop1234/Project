@@ -26,7 +26,7 @@ public class Login {
 	private String password;
 
 	@JsonManagedReference
-	@ManyToMany ( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany ( fetch = FetchType.LAZY)
 	@JoinTable(name = "authorities_logins",
 			joinColumns = {
 				@JoinColumn(name = "Login_id",referencedColumnName = "id")

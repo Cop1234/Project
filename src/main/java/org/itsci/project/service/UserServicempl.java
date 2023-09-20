@@ -13,17 +13,16 @@ import org.itsci.project.repository.LoginRepository;
 import org.itsci.project.repository.StudentRepository;
 import org.itsci.project.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Date;
+import java.util.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -80,11 +79,28 @@ public class UserServicempl implements UserService {
         login.setPassword("MJU@"+ps_day+ps_month+ps_year);
         loginRepository.save(login);
 
+        Authority authority = null;
         //AddRoleForLogin
         Long TeacherRoleId = Long.parseLong("2");
         Set<Authority> roleSet = null;
-        Authority authority = authorityRepository.findById(TeacherRoleId).get();
-        login = loginRepository.findById(login.getId()).get();
+        //login = loginRepository.findById(login.getId()).get();
+        Optional<Login> loginOptional = loginRepository.findById(login.getId());
+        if (loginOptional.isPresent()) {
+            login = loginOptional.get();
+            // ทำสิ่งที่คุณต้องการกับ login ที่พบ
+        } else {
+            // ไม่พบ login ที่ตรงเงื่อนไข
+            new ResponseEntity<>("Failed to Add teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        //authority = authorityRepository.findById(TeacherRoleId).get();
+        Optional<Authority> authorityOptional = authorityRepository.findById(Long.parseLong("2"));
+        if (authorityOptional.isPresent()) {
+            authority = authorityOptional.get();
+            // ทำสิ่งที่คุณต้องการกับ authority ที่พบ
+        } else {
+            // ไม่พบ authority ที่ตรงเงื่อนไข
+        }
+
         roleSet = login.getRole();
         roleSet.add(authority);
         login.setRole(roleSet);
