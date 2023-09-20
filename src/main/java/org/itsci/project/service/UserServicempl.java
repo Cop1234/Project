@@ -110,41 +110,22 @@ public class UserServicempl implements UserService {
         String loginid = map.get("loginid");
         String password = map.get("password");
 
+        Login login = loginRepository.findById(Long.parseLong(loginid)).get();
+        login.setPassword(password);
+        loginRepository.save(login);
+
         // ค้นหา Teacher ที่ต้องการอัปเดต
-        User teacher = teacherRepository.findById(Id).get();
-
-        if (teacher != null) {
-            // อัปเดตข้อมูล Teacher
-
-            teacher.setEmail(email);
-            teacher.setFname(firstName);
-            teacher.setLname(lastName);
-
-            // อัปเดตวันเกิด
-            DateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date birthDate = dayFormat.parse(birthdate);
-            teacher.setBirthdate(birthDate);
-
-            teacher.setGender(gender);
-
-            // บันทึกข้อมูล Teacher ที่อัปเดตลงในฐานข้อมูล
-            teacher = teacherRepository.save(teacher);
-
-            // อัปเดตข้อมูล Login
-            Login login = loginRepository.findById(Long.parseLong(loginid)).get();
-
-            if (login != null) {
-                login.setPassword(password);
-
-                // บันทึกข้อมูล Login ที่อัปเดตลงในฐานข้อมูล
-                login = loginRepository.save(login);
-            }
-
-            return teacher;
-        } else {
-            // ถ้าไม่พบ Teacher ที่ต้องการอัปเดต
-            return null;
-        }
+        User user = teacherRepository.findById(Id).get();
+        user.setEmail(email);
+        user.setFname(firstName);
+        user.setLname(lastName);
+        // อัปเดตวันเกิด
+        DateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date birthDate = dayFormat.parse(birthdate);
+        user.setBirthdate(birthDate);
+        user.setGender(gender);
+        // บันทึกข้อมูล Teacher ที่อัปเดตลงในฐานข้อมูล
+     return teacherRepository.save(user);
     }
 
     //Delete User Teacher
