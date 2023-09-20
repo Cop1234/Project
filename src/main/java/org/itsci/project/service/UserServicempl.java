@@ -13,7 +13,6 @@ import org.itsci.project.repository.LoginRepository;
 import org.itsci.project.repository.StudentRepository;
 import org.itsci.project.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -98,12 +97,11 @@ public class UserServicempl implements UserService {
         return teacherRepository.save(users);
     }
 
+    //Update User teacher
     @Override
     public User update_Teacher(Map<String, String> map) throws ParseException {
         // รับข้อมูลที่ต้องการอัปเดตจาก map
         String Id = map.get("id");
-        String userId = map.get("userid");
-        String typeuser = map.get("typeuser");
         String email = map.get("email");
         String firstName = map.get("fname");
         String lastName = map.get("lname");
@@ -117,8 +115,7 @@ public class UserServicempl implements UserService {
 
         if (teacher != null) {
             // อัปเดตข้อมูล Teacher
-            teacher.setUserid(userId);
-            teacher.setTypeuser(typeuser);
+
             teacher.setEmail(email);
             teacher.setFname(firstName);
             teacher.setLname(lastName);

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TeacherRepository extends JpaRepository<User,String> {
+
     List<User> getTeacherByfnameContainingIgnoreCase (String fname);
     List<User> getTeacherBytypeuserContainingIgnoreCase (String typeuser);
 
