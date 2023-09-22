@@ -166,6 +166,7 @@ public class UserServicempl implements UserService {
 
     @Override
     public void insert_DataStudent(MultipartFile file) throws  IOException, ParseException {
+
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
 
@@ -211,5 +212,46 @@ public class UserServicempl implements UserService {
             studentRepository.save(user);
         }
         workbook.close();
+    }
+
+    @Override
+    public User get_Student(String id) {
+        return studentRepository.getReferenceById(id);
+    }
+
+    @Override
+    public void delet_Student(String id) {
+        User Id = studentRepository.getReferenceById(id);
+        studentRepository.delete(Id);
+        studentRepository.findAll();
+    }
+
+    @Override
+    public User update_Student(Map<String, String> map) throws ParseException {
+        String Id = map.get("id");
+        String email = map.get("email");
+        String firstName = map.get("fname");
+        String lastName = map.get("lname");
+        String birthdate = map.get("birthdate");
+        String gender = map.get("gender");
+        String loginid = map.get("loginid");
+        String password = map.get("password");
+
+        Login login = loginRepository.findById(Long.parseLong(loginid)).get();
+        login.setPassword(password);
+        loginRepository.save(login);
+
+        // ค้นหา Teacher ที่ต้องการอัปเดต
+        User user = studentRepository.findById(Id).get();
+        user.setEmail(email);
+        user.setFname(firstName);
+        user.setLname(lastName);
+        // อัปเดตวันเกิด
+        DateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date birthDate = dayFormat.parse(birthdate);
+        user.setBirthdate(birthDate);
+        user.setGender(gender);
+        // บันทึกข้อมูล Teacher ที่อัปเดตลงในฐานข้อมูล
+        return studentRepository.save(user);
     }
 }

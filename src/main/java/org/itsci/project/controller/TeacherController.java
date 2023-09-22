@@ -61,7 +61,7 @@ public class TeacherController {
         }
     }
 
-    //ubdate subject
+    //ubdate Teacher
     @PutMapping("/update")
     public ResponseEntity update_Teacher(@RequestBody Map<String,String> map) {
         try {

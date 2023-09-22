@@ -38,4 +38,10 @@ public interface UserService {
     //import User Student
     void insert_DataStudent(MultipartFile file) throws IOException, ParseException;
 
+    User get_Student(String id);
+
+    void delet_Student(String id);
+
+    User update_Student(Map<String,String> map) throws ParseException;
+
 }
