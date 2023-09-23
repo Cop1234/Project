@@ -28,7 +28,7 @@ public class ProjectApplication implements CommandLineRunner {
         Authority b = new Authority(id, "Teacher");
         authorityRepository.save(b);
         id = Long.parseLong("3");
-        Authority c = new Authority(id, "Addmin");
+        Authority c = new Authority(id, "Admin");
         authorityRepository.save(c);
     }
 

@@ -28,8 +28,19 @@ public class SectionController {
         }
     }
 
+    @RequestMapping("/listbyiduser/{IdUser}")
+    public ResponseEntity get_ListSectionByIdUser(@PathVariable("IdUser") Long IdUser){
+        try {
+            List<Section> sections = sectionService.get_ListSectionByIdUser(IdUser);
+            return new ResponseEntity<>(sections, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to list Section by IdUser!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @RequestMapping("/getbyid/{id}")
-    public ResponseEntity get_SectionById (@PathVariable("id") String id){
+    public ResponseEntity get_SectionById (@PathVariable("id") Long id){
         try {
             Section section = sectionService.get_SectionById(id);
             return new ResponseEntity<>(section , HttpStatus.OK);
@@ -62,7 +73,7 @@ public class SectionController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity delet_Section (@PathVariable("id") String id){
+    public ResponseEntity delet_Section (@PathVariable("id") Long id){
         try {
             Section section = sectionService.get_SectionById(id);
             Long sectionId = section.getId();

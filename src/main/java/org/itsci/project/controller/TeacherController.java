@@ -92,7 +92,7 @@ public class TeacherController {
 
     //หาข้อมูลทั้งหมดด้วยตัวอักษร
     @GetMapping("/getbycontname/{fname}")
-    public ResponseEntity getSubjectsBySubjectNameContainingIgnoreCase (@PathVariable("fname") String fname){
+    public ResponseEntity getTeacherByfnameContainingIgnoreCase (@PathVariable("fname") String fname){
         try {
             List<User> users = userService.getTeacherByfnameContainingIgnoreCase(fname);
             return new ResponseEntity<>(users, HttpStatus.OK);

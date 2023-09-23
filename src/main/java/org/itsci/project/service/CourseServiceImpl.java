@@ -30,22 +30,29 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Course get_CourseById(String id) {
+    public List<Course> get_ListCourseByIdUser(Long iduser) {
+        List<Course> courses = courseRepository.findByUserId(iduser);
+        return courses;
+    }
+
+    @Override
+    public Course get_CourseById(Long id) {
         return courseRepository.getReferenceById(id);
     }
 
     @Override
     public Course add_Course(Map<String, String> map) {
-        String semester = map.get("semester");
-        String term = map.get("term");
         String subjectId = map.get("subjectId");
         String userId = map.get("userId");
+        String term = map.get("term");
+        String semester = map.get("semester").trim();
         int semesterInt = Integer.parseInt(semester);
         int termInt = Integer.parseInt(term);
+        long userIdLong = Long.parseLong(userId);
 
         // ดึง Subject และ User จากฐานข้อมูล (ในตัวอย่างนี้เปรียบเทียบกับการใช้ค่าของ subjectIdStr และ userIdStr)
         Subject subject = subjectRepository.findById(subjectId).orElse(null);
-        User user = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findById(userIdLong).orElse(null);
 
         if (subject == null || user == null) {
             // จัดการกรณีที่ไม่พบ Subject หรือ User
@@ -68,7 +75,7 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public void delet_Course(String id) {
+    public void delet_Course(Long id) {
         Course Id = courseRepository.getReferenceById(id);
         courseRepository.delete(Id);
         courseRepository.findAll();

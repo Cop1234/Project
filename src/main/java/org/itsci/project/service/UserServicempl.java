@@ -1,17 +1,12 @@
 package org.itsci.project.service;
 
-
-
 import org.itsci.project.model.Authority;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.itsci.project.model.Login;
 import org.itsci.project.model.User;
-import org.itsci.project.repository.AuthorityRepository;
-import org.itsci.project.repository.LoginRepository;
-import org.itsci.project.repository.StudentRepository;
-import org.itsci.project.repository.TeacherRepository;
+import org.itsci.project.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +19,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @Service
@@ -43,6 +35,19 @@ public class UserServicempl implements UserService {
 
     @Autowired
     private AuthorityRepository authorityRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public Long findUserIdByUsername(String username) {
+        return userRepository.findUserIdByUsername(username);
+    }
+
+    @Override
+    public User get_user(Long id) {
+        return userRepository.getReferenceById(id);
+    }
 
     //List User teacher All
     @Override
@@ -81,7 +86,7 @@ public class UserServicempl implements UserService {
 
         Authority authority = null;
         //AddRoleForLogin
-        Long TeacherRoleId = Long.parseLong("2");
+        //Long TeacherRoleId = Long.parseLong("2");
         Set<Authority> roleSet = null;
         //login = loginRepository.findById(login.getId()).get();
         Optional<Login> loginOptional = loginRepository.findById(login.getId());
@@ -90,7 +95,7 @@ public class UserServicempl implements UserService {
             // ทำสิ่งที่คุณต้องการกับ login ที่พบ
         } else {
             // ไม่พบ login ที่ตรงเงื่อนไข
-            new ResponseEntity<>("Failed to Add teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
+            new ResponseEntity<>("Failed to find login!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //authority = authorityRepository.findById(TeacherRoleId).get();
         Optional<Authority> authorityOptional = authorityRepository.findById(Long.parseLong("2"));
@@ -99,6 +104,7 @@ public class UserServicempl implements UserService {
             // ทำสิ่งที่คุณต้องการกับ authority ที่พบ
         } else {
             // ไม่พบ authority ที่ตรงเงื่อนไข
+            new ResponseEntity<>("Failed to find Authority!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         roleSet = login.getRole();
@@ -192,10 +198,29 @@ public class UserServicempl implements UserService {
             loginRepository.save(login);
 
             //AddRoleForLogin
-            Long StudentRoleId = Long.parseLong("1");
+            //Long StudentRoleId = Long.parseLong("1");
+            Authority authority = null;
             Set<Authority> roleSet = null;
-            Authority authority = authorityRepository.findById(StudentRoleId).get();
-            login = loginRepository.findById(login.getId()).get();
+            //Authority authority = authorityRepository.findById(StudentRoleId).get();
+            //login = loginRepository.findById(login.getId()).get();
+            Optional<Login> loginOptional = loginRepository.findById(login.getId());
+            if (loginOptional.isPresent()) {
+                login = loginOptional.get();
+                // ทำสิ่งที่คุณต้องการกับ login ที่พบ
+            } else {
+                // ไม่พบ login ที่ตรงเงื่อนไข
+                new ResponseEntity<>("Failed to find login!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            //authority = authorityRepository.findById(TeacherRoleId).get();
+            Optional<Authority> authorityOptional = authorityRepository.findById(Long.parseLong("1"));
+            if (authorityOptional.isPresent()) {
+                authority = authorityOptional.get();
+                // ทำสิ่งที่คุณต้องการกับ authority ที่พบ
+            } else {
+                // ไม่พบ authority ที่ตรงเงื่อนไข
+                new ResponseEntity<>("Failed to find Authority!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
             roleSet = login.getRole();
             roleSet.add(authority);
             login.setRole(roleSet);
@@ -254,4 +279,5 @@ public class UserServicempl implements UserService {
         // บันทึกข้อมูล Teacher ที่อัปเดตลงในฐานข้อมูล
         return studentRepository.save(user);
     }
+
 }

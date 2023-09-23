@@ -41,7 +41,13 @@ public class SectionServiceImpl implements SectionService{
     }
 
     @Override
-    public Section get_SectionById(String id) {
+    public List<Section> get_ListSectionByIdUser(Long iduser) {
+        List<Section> sections = sectionRepository.findByUserId(iduser);
+        return sections;
+    }
+
+    @Override
+    public Section get_SectionById(Long id) {
         return sectionRepository.getReferenceById(id);
     }
 
@@ -55,18 +61,20 @@ public class SectionServiceImpl implements SectionService{
         String courseId = map.get("courseId");
         String roomId = map.get("roomId");
         int durationInt = Integer.parseInt(duration);
+        long userIdLong = Long.parseLong(userId);
+        long courseIdLong = Long.parseLong(courseId);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime startTimeParse = LocalTime.parse(startTime, formatter);
 
-        Course course = courseRepository.findById(courseId).orElse(null);
+        Course course = courseRepository.findById(courseIdLong).orElse(null);
         Room room = roomRepository.findById(roomId).orElse(null);
-        User user = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findById(userIdLong).orElse(null);
 
         if (room == null || user == null || course == null) {
             // จัดการกรณีที่ไม่พบ Subject หรือ User
             // คุณสามารถจัดการตามความเหมาะสม เช่น โยนข้อผิดพลาดหรือทำอื่น ๆ ตามที่คุณต้องการ
-            throw new IllegalArgumentException("Subject or User not found");
+            throw new IllegalArgumentException("Room or User or Course not found");
         }
 
         Section section = new Section();
@@ -87,7 +95,7 @@ public class SectionServiceImpl implements SectionService{
     }
 
     @Override
-    public void delet_Section(String id) {
+    public void delet_Section(Long id) {
         Section Id = sectionRepository.getReferenceById(id);
         sectionRepository.delete(Id);
         sectionRepository.findAll();

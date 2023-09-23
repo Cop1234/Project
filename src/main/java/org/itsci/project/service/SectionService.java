@@ -12,8 +12,10 @@ public interface SectionService {
     //GET ALL
     List<Section> get_ListSection();
 
+    List<Section> get_ListSectionByIdUser(Long iduser);
+
     //GET BY ID
-    Section get_SectionById(String id);
+    Section get_SectionById(Long id);
 
     //CREATE
     Section add_Section(Map<String,String> map);
@@ -22,5 +24,5 @@ public interface SectionService {
     Section update_Section (Section section);
 
     //Delete
-    void delet_Section(String id);
+    void delet_Section(Long id);
 }

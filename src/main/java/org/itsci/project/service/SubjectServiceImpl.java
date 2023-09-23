@@ -34,7 +34,7 @@ public class SubjectServiceImpl implements SubjectService {
         int creditConvert = Integer.parseInt(credit);
 
         //Create new object
-        Subject subject=new Subject();
+        Subject subject = new Subject();
         subject.setSubjectId(subjectId);
         subject.setSubjectName(subjectName);
         subject.setDetail(detail);

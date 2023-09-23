@@ -1,9 +1,7 @@
 package org.itsci.project.service;
 
-import org.itsci.project.model.Login;
 import org.itsci.project.model.User;
-import org.itsci.project.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -12,6 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
+
+    //Find user by Username
+    Long findUserIdByUsername(@Param("username") String username);
+
+    //Get User by Id
+    User get_user(Long id);
 
     //List User teacher All
     List<User> get_ListTeacher (String typeuser);
@@ -22,9 +26,8 @@ public interface UserService {
     //CREATE (User teacher)
     User add_Teacher(Map<String,String> map) throws ParseException;
 
-    User update_Teacher(Map<String,String> map) throws ParseException;
     //Update (User teacher)
-    //User update_Teacher (User user);
+    User update_Teacher(Map<String,String> map) throws ParseException;
 
     //Delete (User teacher)
     void delet_Teacher(String id);

@@ -1,6 +1,7 @@
 package org.itsci.project.controller;
 
 import org.itsci.project.model.Course;
+import org.itsci.project.model.Section;
 import org.itsci.project.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,8 +29,19 @@ public class CourseController {
         }
     }
 
+    @RequestMapping("/listbyiduser/{IdUser}")
+    public ResponseEntity get_ListCourseByIdUser(@PathVariable("IdUser") Long IdUser){
+        try {
+            List<Course> courses = courseService.get_ListCourseByIdUser(IdUser);
+            return new ResponseEntity<>(courses, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to list Course by IdUser!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @RequestMapping("/getbyid/{id}")
-    public ResponseEntity get_CourseById (@PathVariable("id") String id){
+    public ResponseEntity get_CourseById (@PathVariable("id") Long id){
         try {
             Course course = courseService.get_CourseById(id);
             return new ResponseEntity<>(course , HttpStatus.OK);
@@ -62,7 +74,7 @@ public class CourseController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity delet_Course (@PathVariable("id") String id){
+    public ResponseEntity delet_Course (@PathVariable("id") Long id){
         try {
             Course course = courseService.get_CourseById(id);
             Long courseId = course.getId();
