@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class Registration {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 	private String regisStatus;
 	

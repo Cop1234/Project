@@ -10,6 +10,8 @@ import java.util.Optional;
 //@Repository
 public interface StudentRepository extends JpaRepository<User,String> {
     List<User> getStudentBytypeuser (String typeuser);
-    List<User> getStudentByUserid (String userid);
+    Optional<User> findByuserid (String userid);
+
+
     Optional<User> findById(String id);
 }
