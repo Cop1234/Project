@@ -11,12 +11,9 @@ import org.itsci.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.text.ParseException;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -90,9 +87,45 @@ public class SectionServiceImpl implements SectionService{
     }
 
     @Override
-    public Section update_Section(Section section) {
+    public Section update_Section(Map<String, String> map) throws ParseException {
+        String id = map.get("id");
+        String startTime = map.get("startTime");
+        String duration = map.get("duration");
+        String sectionNumber = map.get("sectionNumber");
+        String type = map.get("type");
+        String userId = map.get("userId");
+        String courseId = map.get("courseId");
+        String roomId = map.get("roomId");
+        int durationInt = Integer.parseInt(duration);
+        long Id = Long.parseLong(id);
+        long userIdLong = Long.parseLong(userId);
+        long courseIdLong = Long.parseLong(courseId);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime startTimeParse = LocalTime.parse(startTime, formatter);
+
+        Course course = courseRepository.findById(courseIdLong).orElse(null);
+        Room room = roomRepository.findById(roomId).orElse(null);
+        User user = userRepository.findById(userIdLong).orElse(null);
+
+        if (room == null || user == null || course == null) {
+            // จัดการกรณีที่ไม่พบ Subject หรือ User
+            // คุณสามารถจัดการตามความเหมาะสม เช่น โยนข้อผิดพลาดหรือทำอื่น ๆ ตามที่คุณต้องการ
+            throw new IllegalArgumentException("Room or User or Course not found");
+        }
+
+        Section section = sectionRepository.getReferenceById(Id);
+        section.setStartTime(startTimeParse);
+        section.setDuration(durationInt);
+        section.setSectionNumber(sectionNumber);
+        section.setType(type);
+        section.setUser(user);
+        section.setCourse(course);
+        section.setRoom(room);
+
         return sectionRepository.save(section);
     }
+
 
     @Override
     public void delet_Section(Long id) {

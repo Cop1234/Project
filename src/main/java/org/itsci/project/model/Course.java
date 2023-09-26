@@ -20,11 +20,11 @@ public class Course  implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
 	@JoinColumn(name = "subjectid")
 	private Subject subject;
 	
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
 	@JoinColumn(name = "userID")
 	private User user;
 

@@ -9,6 +9,7 @@ import org.itsci.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -70,9 +71,36 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Course update_Course(Course course) {
+    public Course update_Course(Map<String, String> map) throws ParseException {
+        String id = map.get("id");
+        String subjectId = map.get("subjectId");
+        String userId = map.get("userId");
+        String term = map.get("term");
+        String semester = map.get("semester").trim();
+        int semesterInt = Integer.parseInt(semester);
+        int termInt = Integer.parseInt(term);
+        long Id = Long.parseLong(id);
+        long userIdLong = Long.parseLong(userId);
+
+        // ดึง Subject และ User จากฐานข้อมูล (ในตัวอย่างนี้เปรียบเทียบกับการใช้ค่าของ subjectIdStr และ userIdStr)
+        Subject subject = subjectRepository.findById(subjectId).orElse(null);
+        User user = userRepository.findById(userIdLong).orElse(null);
+
+        if (subject == null || user == null) {
+            // จัดการกรณีที่ไม่พบ Subject หรือ User
+            // คุณสามารถจัดการตามความเหมาะสม เช่น โยนข้อผิดพลาดหรือทำอื่น ๆ ตามที่คุณต้องการ
+            throw new IllegalArgumentException("Subject or User not found");
+        }
+
+        Course course = courseRepository.getReferenceById(Id);
+        course.setSubject(subject);
+        course.setUser(user);
+        course.setTerm(termInt);
+        course.setSemester(semesterInt);
+
         return courseRepository.save(course);
     }
+
 
     @Override
     public void delet_Course(Long id) {

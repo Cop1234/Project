@@ -62,13 +62,13 @@ public class SectionController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity update_Course (@RequestBody Section section){
+    public ResponseEntity update_Section (@RequestBody Map<String,String> map){
         try {
-            Section update_section = sectionService.update_Section(section);
+            Section update_section = sectionService.update_Section(map);
             return new ResponseEntity<>(update_section, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to Add Section!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to update Section!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

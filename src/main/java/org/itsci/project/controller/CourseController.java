@@ -63,13 +63,13 @@ public class CourseController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity update_Course (@RequestBody Course course){
+    public ResponseEntity update_Course (@RequestBody Map<String,String> map){
         try {
-            Course update_course = courseService.update_Course(course);
+            Course update_course = courseService.update_Course(map);
             return new ResponseEntity<>(update_course, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to Add Course!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to update Course!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
