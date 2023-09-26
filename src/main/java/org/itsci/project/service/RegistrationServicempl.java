@@ -32,9 +32,10 @@ public class RegistrationServicempl implements RegistrationService {
         Sheet sheet = workbook.getSheetAt(0);
         Section section_id = sectionRepository.findById(Long.parseLong(id)).get();
         for (Row row : sheet) {
-            String fname = row.getCell(0).getStringCellValue();
-            String lname = row.getCell(1).getStringCellValue();
-            String userid = row.getCell(2).getStringCellValue();
+            String userid = row.getCell(0).getStringCellValue();
+            String fname = row.getCell(1).getStringCellValue();
+            String lname = row.getCell(2).getStringCellValue();
+
             String regisStatus = "ลงทะเบียนเรียน";
 
             User userUserid = studentRepository.findByuserid(userid).get();
