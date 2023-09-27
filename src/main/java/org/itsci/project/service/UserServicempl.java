@@ -191,50 +191,68 @@ public class UserServicempl implements UserService {
             String ps_day = ps[0];
             String ps_month = ps[1];
             String ps_year = ps[2];
-            //Create new object
-            Login login = new Login();
-            login.setUsername("MJU"+userid);
-            login.setPassword("MJU@" + ps_day + ps_month + ps_year);
-            loginRepository.save(login);
 
-            //AddRoleForLogin
-            //Long StudentRoleId = Long.parseLong("1");
-            Authority authority = null;
-            Set<Authority> roleSet = null;
-            //Authority authority = authorityRepository.findById(StudentRoleId).get();
-            //login = loginRepository.findById(login.getId()).get();
-            Optional<Login> loginOptional = loginRepository.findById(login.getId());
-            if (loginOptional.isPresent()) {
-                login = loginOptional.get();
-                // ทำสิ่งที่คุณต้องการกับ login ที่พบ
-            } else {
-                // ไม่พบ login ที่ตรงเงื่อนไข
-                new ResponseEntity<>("Failed to find login!", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-            //authority = authorityRepository.findById(TeacherRoleId).get();
-            Optional<Authority> authorityOptional = authorityRepository.findById(Long.parseLong("1"));
-            if (authorityOptional.isPresent()) {
-                authority = authorityOptional.get();
-                // ทำสิ่งที่คุณต้องการกับ authority ที่พบ
-            } else {
-                // ไม่พบ authority ที่ตรงเงื่อนไข
-                new ResponseEntity<>("Failed to find Authority!", HttpStatus.INTERNAL_SERVER_ERROR);
+            User userUserid = studentRepository.findByuserid(userid).get();
+
+            if (!userUserid.getUserid().equals(userid)){
+                //Create new object
+                Login login = new Login();
+                login.setUsername("MJU"+userid);
+                login.setPassword("MJU@" + ps_day + ps_month + ps_year);
+                loginRepository.save(login);
+
+                //AddRoleForLogin
+                //Long StudentRoleId = Long.parseLong("1");
+                Authority authority = null;
+                Set<Authority> roleSet = null;
+                //Authority authority = authorityRepository.findById(StudentRoleId).get();
+                //login = loginRepository.findById(login.getId()).get();
+                Optional<Login> loginOptional = loginRepository.findById(login.getId());
+                if (loginOptional.isPresent()) {
+                    login = loginOptional.get();
+                    // ทำสิ่งที่คุณต้องการกับ login ที่พบ
+                } else {
+                    // ไม่พบ login ที่ตรงเงื่อนไข
+                    new ResponseEntity<>("Failed to find login!", HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+                //authority = authorityRepository.findById(TeacherRoleId).get();
+                Optional<Authority> authorityOptional = authorityRepository.findById(Long.parseLong("1"));
+                if (authorityOptional.isPresent()) {
+                    authority = authorityOptional.get();
+                    // ทำสิ่งที่คุณต้องการกับ authority ที่พบ
+                } else {
+                    // ไม่พบ authority ที่ตรงเงื่อนไข
+                    new ResponseEntity<>("Failed to find Authority!", HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+
+                roleSet = login.getRole();
+                roleSet.add(authority);
+                login.setRole(roleSet);
+                loginRepository.save(login);
+                User user = new User();
+                user.setUserid(userid);
+                user.setEmail(email);
+                user.setFname(fname);
+                user.setLname(lname);
+                user.setBirthdate(birthdates);
+                user.setGender(gender);
+                user.setTypeuser(typeuser);
+                user.setLogin(login);
+                studentRepository.save(user);
+
+            }else{
+                Long id = userUserid.getId();
+                User user = studentRepository.findById(id.toString()).get();
+                user.setUserid(userid);
+                user.setEmail(email);
+                user.setFname(fname);
+                user.setLname(lname);
+                user.setBirthdate(birthdates);
+                user.setGender(gender);
+                user.setTypeuser(typeuser);
+                studentRepository.save(user);
             }
 
-            roleSet = login.getRole();
-            roleSet.add(authority);
-            login.setRole(roleSet);
-            loginRepository.save(login);
-            User user = new User();
-            user.setUserid(userid);
-            user.setEmail(email);
-            user.setFname(fname);
-            user.setLname(lname);
-            user.setBirthdate(birthdates);
-            user.setGender(gender);
-            user.setTypeuser(typeuser);
-            user.setLogin(login);
-            studentRepository.save(user);
         }
         workbook.close();
     }

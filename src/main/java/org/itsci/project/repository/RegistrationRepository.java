@@ -13,5 +13,5 @@ public interface RegistrationRepository extends JpaRepository<Registration,Strin
     List<Registration> findByUserId(Long id);
     Optional<Registration> findById(Long id);
 
-
+    Optional<Registration> findByUser_Id(Long id);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RegistrationServicempl implements RegistrationService {
@@ -30,24 +31,39 @@ public class RegistrationServicempl implements RegistrationService {
 
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
-        Section section_id = sectionRepository.findById(Long.parseLong(id)).get();
+
         for (Row row : sheet) {
             String userid = row.getCell(0).getStringCellValue();
             String fname = row.getCell(1).getStringCellValue();
             String lname = row.getCell(2).getStringCellValue();
 
-            String regisStatus = "ลงทะเบียนเรียน";
-
+            String regisStatus = row.getCell(3).getStringCellValue();
+                    //"ลงทะเบียนเรียน";
+            Section section_id = sectionRepository.findById(Long.parseLong(id)).get();
             User userUserid = studentRepository.findByuserid(userid).get();
+            Long idUser = userUserid.getId();
+            Registration registration = registrationRepository.findByUser_Id(idUser).get();
+            Long reg_idSec = registration.getSection().getId();
+            Long idReg = registration.getId();
+
+
 
             if (userUserid.getFname().equals(fname)){
                     if (userUserid.getLname().equals(lname)){
                         if (userUserid.getUserid().equals(userid)){
-                            Registration registration = new Registration();
-                            registration.setSection(section_id);
-                            registration.setUser(userUserid);
-                            registration.setRegisStatus(regisStatus);
-                            registrationRepository.save(registration);
+                            if (!reg_idSec.equals(section_id.getId())) {
+                                Registration registrations = new Registration();
+                                registrations.setSection(section_id);
+                                registrations.setUser(userUserid);
+                                registrations.setRegisStatus(regisStatus);
+                                registrationRepository.save(registrations);
+                            }else {
+
+                               Registration regs =  registrationRepository.findById(idReg).get();
+                               regs.setRegisStatus(regisStatus);
+                               registrationRepository.save(regs);
+                            }
+
                         }else {
                             System.out.println("null value userid! "+userid);
                         }
