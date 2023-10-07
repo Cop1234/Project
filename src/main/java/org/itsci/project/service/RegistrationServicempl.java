@@ -27,56 +27,58 @@ public class RegistrationServicempl implements RegistrationService {
     private SectionRepository sectionRepository;
 
     @Override
-    public void Import_Student(MultipartFile file,String id) throws  IOException {
+    public void Import_Student(MultipartFile file, String id) throws IOException {
 
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
         int rowNum = 0; // ใช้ตรวจสอบว่าเราอยู่ที่แถวที่ 0 หรือไม่
+
         for (Row row : sheet) {
             if (rowNum == 0) {
                 // ข้ามการอ่านข้อมูลในแถวที่ 0
                 rowNum++;
                 continue;
             }
+
             String userid = row.getCell(0).getStringCellValue();
             String fname = row.getCell(1).getStringCellValue();
             String lname = row.getCell(2).getStringCellValue();
-
             String regisStatus = row.getCell(3).getStringCellValue();
-                    //"ลงทะเบียนเรียน";
-            Section section_id = sectionRepository.findById(Long.parseLong(id)).get();
-            User userUserid = studentRepository.findByuserid(userid).get();
-            Long idUser = userUserid.getId();
-            Registration registration = registrationRepository.findByUser_Id(idUser).get();
-            Long reg_idSec = registration.getSection().getId();
-            Long idReg = registration.getId();
 
+            Optional<Section> sectionOptional = sectionRepository.findById(Long.parseLong(id));
+            Optional<User> userOptional = studentRepository.findByuserid(userid);
+            Optional<Registration> registrationOptional = registrationRepository.findByUser_Id(userOptional.map(User::getId).orElse(-1L));
 
-            if (userUserid.getFname().equals(fname)){
-                    if (userUserid.getLname().equals(lname)){
-                        if (userUserid.getUserid().equals(userid)){
-                            if (!reg_idSec.equals(section_id.getId())) {
-                                Registration registrations = new Registration();
-                                registrations.setSection(section_id);
-                                registrations.setUser(userUserid);
-                                registrations.setRegisStatus(regisStatus);
-                                registrationRepository.save(registrations);
-                            }else {
+            if (sectionOptional.isPresent() && userOptional.isPresent() && registrationOptional.isPresent()) {
+                Section section_id = sectionOptional.get();
+                User userUserid = userOptional.get();
+                Registration registration = registrationOptional.get();
+                Long reg_idSec = registration.getSection().getId();
 
-                               Registration regs =  registrationRepository.findById(idReg).get();
-                               regs.setRegisStatus(regisStatus);
-                               registrationRepository.save(regs);
-                            }
-
-                        }else {
-                            System.out.println("null value userid! "+userid);
-                        }
-                    }else {
-                        System.out.println("null value lname! "+lname);
+                if (userUserid.getFname().equals(fname) && userUserid.getLname().equals(lname) && userUserid.getUserid().equals(userid)) {
+                    if (!reg_idSec.equals(section_id.getId())) {
+                        Registration registrations = new Registration();
+                        registrations.setSection(section_id);
+                        registrations.setUser(userUserid);
+                        registrations.setRegisStatus(regisStatus);
+                        registrationRepository.save(registrations);
+                    } else {
+                        Registration regs = registrationRepository.findById(registration.getId()).get();
+                        regs.setRegisStatus(regisStatus);
+                        registrationRepository.save(regs);
                     }
-                }else {
-                    System.out.println("null value fname!" + fname);
+                } else {
+                    System.out.println("Mismatch in user details for userid: " + userid);
                 }
+            } else {
+                User userUserid = userOptional.get();
+                Section section_id = sectionOptional.get();
+                Registration registrations = new Registration();
+                registrations.setSection(section_id);
+                registrations.setUser(userUserid);
+                registrations.setRegisStatus(regisStatus);
+                registrationRepository.save(registrations);
+            }
             rowNum++;
         }
         workbook.close();
