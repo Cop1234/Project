@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -19,15 +20,25 @@ import java.util.Set;
 public class AttendanceSchedule {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
-	private String subjectID;
-	private String studentID;
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@JoinColumn(name = "regID")
+	private Registration registration;
+
+	@Column(nullable = false)
 	private int weekNo;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
-	@JoinColumn(name="sectionid", nullable=false)
-    private Section section;
+	@Column(nullable = false)
+	private Date checkInTime;
+
+	@Column(nullable = false)
+	private String status;
+
+//	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+//	@JoinColumn(name="sectionid", nullable=false)
+//    private Section section;
 
 	//@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	//@JoinColumn(name="roomid", nullable=false)
