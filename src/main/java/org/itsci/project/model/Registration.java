@@ -19,11 +19,11 @@ public class Registration {
 	private Long id;
 	private String regisStatus;
 	
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
 	@JoinColumn(name = "sectionID",referencedColumnName = "id")
 	private Section section;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
 	@JoinColumn(name = "userID")
 	private User user;
 	

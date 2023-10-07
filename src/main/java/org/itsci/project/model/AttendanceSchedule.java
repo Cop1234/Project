@@ -23,30 +23,14 @@ public class AttendanceSchedule {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
 	@JoinColumn(name = "regID")
 	private Registration registration;
 
-	@Column(nullable = false)
 	private int weekNo;
 
-	@Column(nullable = false)
 	private Date checkInTime;
 
-	@Column(nullable = false)
 	private String status;
-
-//	@ManyToOne(cascade = CascadeType.ALL, optional = false)
-//	@JoinColumn(name="sectionid", nullable=false)
-//    private Section section;
-
-	//@ManyToOne(cascade = CascadeType.ALL, optional = false)
-	//@JoinColumn(name="roomid", nullable=false)
-	//private Room room;
-
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name="roomName")
-//	private List<Room> room;
-	
 
 }
