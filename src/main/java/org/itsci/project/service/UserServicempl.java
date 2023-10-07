@@ -175,8 +175,15 @@ public class UserServicempl implements UserService {
 
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
-
+        int rowNum = 0; // ใช้ตรวจสอบว่าเราอยู่ที่แถวที่ 0 หรือไม่
         for (Row row : sheet) {
+            if (rowNum == 0) {
+                // ข้ามการอ่านข้อมูลในแถวที่ 0
+                rowNum++;
+                continue;
+            }
+
+
             String userid = row.getCell(0).getStringCellValue();
             String typeuser = "Student";
             String email = row.getCell(1).getStringCellValue();
@@ -252,7 +259,7 @@ public class UserServicempl implements UserService {
                 user.setTypeuser(typeuser);
                 studentRepository.save(user);
             }
-
+            rowNum++;
         }
         workbook.close();
     }

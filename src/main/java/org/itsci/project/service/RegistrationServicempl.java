@@ -31,8 +31,13 @@ public class RegistrationServicempl implements RegistrationService {
 
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
-
+        int rowNum = 0; // ใช้ตรวจสอบว่าเราอยู่ที่แถวที่ 0 หรือไม่
         for (Row row : sheet) {
+            if (rowNum == 0) {
+                // ข้ามการอ่านข้อมูลในแถวที่ 0
+                rowNum++;
+                continue;
+            }
             String userid = row.getCell(0).getStringCellValue();
             String fname = row.getCell(1).getStringCellValue();
             String lname = row.getCell(2).getStringCellValue();
@@ -45,7 +50,6 @@ public class RegistrationServicempl implements RegistrationService {
             Registration registration = registrationRepository.findByUser_Id(idUser).get();
             Long reg_idSec = registration.getSection().getId();
             Long idReg = registration.getId();
-
 
 
             if (userUserid.getFname().equals(fname)){
@@ -73,6 +77,7 @@ public class RegistrationServicempl implements RegistrationService {
                 }else {
                     System.out.println("null value fname!" + fname);
                 }
+            rowNum++;
         }
         workbook.close();
     }

@@ -33,6 +33,7 @@ public class CourseController {
     public ResponseEntity get_ListCourseByIdUser(@PathVariable("IdUser") Long IdUser){
         try {
             List<Course> courses = courseService.get_ListCourseByIdUser(IdUser);
+
             return new ResponseEntity<>(courses, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
