@@ -48,6 +48,8 @@ public class StudenController {
             throw new RuntimeException(e);
         }
     }
+
+
     //ubdate Student
     @PutMapping("/update")
     public ResponseEntity update_Student(@RequestBody Map<String,String> map) {

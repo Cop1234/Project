@@ -4,6 +4,7 @@ package org.itsci.project.controller;
 import org.itsci.project.model.Course;
 import org.itsci.project.model.Registration;
 import org.itsci.project.model.Section;
+import org.itsci.project.model.User;
 import org.itsci.project.repository.RegistrationRepository;
 import org.itsci.project.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,30 @@ public class RegistrationController {
         }
     }
 
+    @RequestMapping("/do_getViewStudent/{idsec}")
+    public ResponseEntity GetViewStudent(@PathVariable("idsec") String idsec) {
+        try {
+            List<Registration> registrations = registrationService.do_getViewStudent(idsec);
+            return new ResponseEntity<>(registrations , HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to list student!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+
+    @RequestMapping("/do_update")
+    public ResponseEntity do_update(@RequestBody Map<String,String> map){
+        try {
+            Registration registration = registrationService.do_update(map);
+            return new ResponseEntity<>(registration, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to Add Teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }
