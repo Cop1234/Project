@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -43,7 +44,6 @@ public class RegistrationServicempl implements RegistrationService {
             String userid = row.getCell(0).getStringCellValue();
             String fname = row.getCell(1).getStringCellValue();
             String lname = row.getCell(2).getStringCellValue();
-            String regisStatus = row.getCell(3).getStringCellValue();
 
             Optional<Section> sectionOptional = sectionRepository.findById(Long.parseLong(id));
             Optional<User> userOptional = studentRepository.findByuserid(userid);
@@ -60,12 +60,7 @@ public class RegistrationServicempl implements RegistrationService {
                         Registration registrations = new Registration();
                         registrations.setSection(section_id);
                         registrations.setUser(userUserid);
-                        registrations.setRegisStatus(regisStatus);
                         registrationRepository.save(registrations);
-                    } else {
-                        Registration regs = registrationRepository.findById(registration.getId()).get();
-                        regs.setRegisStatus(regisStatus);
-                        registrationRepository.save(regs);
                     }
                 } else {
                     System.out.println("Mismatch in user details for userid: " + userid);
@@ -76,7 +71,6 @@ public class RegistrationServicempl implements RegistrationService {
                 Registration registrations = new Registration();
                 registrations.setSection(section_id);
                 registrations.setUser(userUserid);
-                registrations.setRegisStatus(regisStatus);
                 registrationRepository.save(registrations);
             }
             rowNum++;
@@ -90,6 +84,33 @@ public class RegistrationServicempl implements RegistrationService {
     public List<Registration> get_ViewSubject(String iduser) {
         Long id = Long.parseLong(iduser);
         return registrationRepository.findByUserId(id);
+    }
+
+    @Override
+    public List<Registration> do_getViewStudent(String idsection) {
+        Long id = Long.parseLong(idsection);
+        return registrationRepository.findBySectionId(id);
+    }
+
+    @Override
+    public Registration do_update(Map<String, String> map) {
+        String userid = map.get("userid");
+        String fname = map.get("fname");
+        String lname = map.get("lname");
+        String idsec = map.get("idsec");
+
+
+        Optional<Section> sectionOptional = sectionRepository.findById(Long.parseLong(idsec));
+        Optional<User> userOptional = studentRepository.findByuserid(userid);
+
+            User userUserid = userOptional.get();
+            Section section_id = sectionOptional.get();
+            Registration registrations = new Registration();
+            registrations.setSection(section_id);
+            registrations.setUser(userUserid);
+            registrationRepository.save(registrations);
+
+        return null;
     }
 
 

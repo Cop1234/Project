@@ -17,7 +17,7 @@ public class Registration {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
-	private String regisStatus;
+
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
 	@JoinColumn(name = "sectionID",referencedColumnName = "id")
