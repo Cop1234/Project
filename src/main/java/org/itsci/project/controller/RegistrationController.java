@@ -1,6 +1,7 @@
 package org.itsci.project.controller;
 
 
+import org.itsci.project.model.Course;
 import org.itsci.project.model.Registration;
 import org.itsci.project.model.Section;
 import org.itsci.project.repository.RegistrationRepository;
@@ -51,7 +52,19 @@ public class RegistrationController {
         }
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delet_Registration (@PathVariable("id") Long id){
+        try {
+            Registration registration = registrationService.get_RegistrationById(id);
+            Long registrationId = registration.getId();
+            registrationService.delet_Registration(id);
 
+            return new ResponseEntity<>("Course " + registrationId + " was deleted!", HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to delete Registration by id!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 

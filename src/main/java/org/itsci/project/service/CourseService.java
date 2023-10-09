@@ -14,6 +14,7 @@ public interface CourseService {
     //GET ALL
     List<Course> get_ListCourse ();
 
+    //GET ALL BY IDUSER
     List<Course> get_ListCourseByIdUser(Long iduser);
 
     //GET BY ID

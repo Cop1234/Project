@@ -23,7 +23,7 @@ public class AttendanceSchedule {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "regID")
 	private Registration registration;
 

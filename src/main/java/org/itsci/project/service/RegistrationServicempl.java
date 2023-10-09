@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -90,6 +92,23 @@ public class RegistrationServicempl implements RegistrationService {
     public List<Registration> get_ViewSubject(String iduser) {
         Long id = Long.parseLong(iduser);
         return registrationRepository.findByUserId(id);
+    }
+
+    @Override
+    public Registration get_RegistrationById(Long id) {
+        return registrationRepository.getReferenceById(id);
+    }
+
+    @Override
+    public Registration update_Registration(Map<String, String> map) throws ParseException {
+        return null;
+    }
+
+    @Override
+    public void delet_Registration(Long id) {
+        Registration Id = registrationRepository.getReferenceById(id);
+        registrationRepository.delete(Id);
+        registrationRepository.findAll();
     }
 
 
