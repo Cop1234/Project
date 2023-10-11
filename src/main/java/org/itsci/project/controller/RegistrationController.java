@@ -54,11 +54,12 @@ public class RegistrationController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity delet_Registration (@PathVariable("id") Long id){
+    public ResponseEntity delet_Registration (@PathVariable("id") String id){
         try {
-            Registration registration = registrationService.get_RegistrationById(id);
+            Long regid = Long.parseLong(id);
+            Registration registration = registrationService.get_RegistrationById(regid);
             Long registrationId = registration.getId();
-            registrationService.delet_Registration(id);
+            registrationService.delet_Registration(regid);
 
             return new ResponseEntity<>("Course " + registrationId + " was deleted!", HttpStatus.OK);
         }catch (Exception e){

@@ -45,7 +45,7 @@ public class RegistrationServicempl implements RegistrationService {
             String userid = row.getCell(0).getStringCellValue();
             String fname = row.getCell(1).getStringCellValue();
             String lname = row.getCell(2).getStringCellValue();
-            String regisStatus = row.getCell(3).getStringCellValue();
+
 
             Optional<Section> sectionOptional = sectionRepository.findById(Long.parseLong(id));
             Optional<User> userOptional = studentRepository.findByuserid(userid);
@@ -97,8 +97,7 @@ public class RegistrationServicempl implements RegistrationService {
     @Override
     public Registration do_update(Map<String, String> map) {
         String userid = map.get("userid");
-        String fname = map.get("fname");
-        String lname = map.get("lname");
+
         String idsec = map.get("idsec");
 
 
@@ -131,6 +130,8 @@ public class RegistrationServicempl implements RegistrationService {
         registrationRepository.delete(Id);
         registrationRepository.findAll();
     }
+
+
 
 
 }
