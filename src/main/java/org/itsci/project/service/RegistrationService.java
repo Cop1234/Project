@@ -22,7 +22,7 @@ public interface RegistrationService {
     //GET BY ID
     Registration get_RegistrationById(Long id);
 
-
+    Registration get_RegistrationIdBySectionIdandIdUser(Long sectionid, Long iduser);
 
     //Delete
     void delet_Registration(Long id);

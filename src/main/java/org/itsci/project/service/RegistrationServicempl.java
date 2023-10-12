@@ -100,7 +100,6 @@ public class RegistrationServicempl implements RegistrationService {
 
         String idsec = map.get("idsec");
 
-
         Optional<Section> sectionOptional = sectionRepository.findById(Long.parseLong(idsec));
         Optional<User> userOptional = studentRepository.findByuserid(userid);
 
@@ -117,6 +116,11 @@ public class RegistrationServicempl implements RegistrationService {
     @Override
     public Registration get_RegistrationById(Long id) {
         return registrationRepository.getReferenceById(id);
+    }
+
+    @Override
+    public Registration get_RegistrationIdBySectionIdandIdUser(Long sectionid, Long iduser) {
+        return registrationRepository.getRegistrationBySection_IdAndUser_Id(sectionid,iduser);
     }
 
 

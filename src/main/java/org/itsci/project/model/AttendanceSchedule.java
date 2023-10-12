@@ -23,9 +23,6 @@ public class AttendanceSchedule {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
-	//@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
-	//@JoinColumn(name = "regID")
-	//private Registration registration;
 	@ManyToOne
 	@JoinColumn(name = "registration_id", referencedColumnName = "id")
 	@JsonIgnoreProperties("attendanceSchedules")

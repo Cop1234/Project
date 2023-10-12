@@ -53,6 +53,17 @@ public class RegistrationController {
         }
     }
 
+    @RequestMapping("/getregid/{sectionid}/{iduser}")
+    public ResponseEntity get_RegistrationIdBySectionIdandIdUser(@PathVariable("sectionid") String sectionid,@PathVariable("iduser") String iduser){
+        try {
+            Registration registrations = registrationService.get_RegistrationIdBySectionIdandIdUser(Long.parseLong(sectionid),Long.parseLong(iduser));
+            return new ResponseEntity<>(registrations, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to get RegId by sectionid and iduser!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delet_Registration (@PathVariable("id") String id){
         try {
