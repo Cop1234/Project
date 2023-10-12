@@ -61,7 +61,7 @@ public class RegistrationController {
             Long registrationId = registration.getId();
             registrationService.delet_Registration(regid);
 
-            return new ResponseEntity<>("Course " + registrationId + " was deleted!", HttpStatus.OK);
+            return new ResponseEntity<>("Registration " + registrationId + " was deleted!", HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Failed to delete Registration by id!", HttpStatus.INTERNAL_SERVER_ERROR);

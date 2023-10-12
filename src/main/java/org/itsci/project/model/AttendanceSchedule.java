@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "attendanceSchedule")
+@Table(name = "attendanceschedule")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -23,8 +23,12 @@ public class AttendanceSchedule {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
-	@JoinColumn(name = "regID")
+	//@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
+	//@JoinColumn(name = "regID")
+	//private Registration registration;
+	@ManyToOne
+	@JoinColumn(name = "registration_id", referencedColumnName = "id")
+	@JsonIgnoreProperties("attendanceSchedules")
 	private Registration registration;
 
 	private int weekNo;

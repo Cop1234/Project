@@ -81,7 +81,7 @@ public class AttendanceScheduleController {
             Long attendanceScheduleId = attendanceSchedule.getId();
             attendanceScheduleService.delet_AttendanceSchedule(id);
 
-            return new ResponseEntity<>("Course " + attendanceScheduleId + " was deleted!", HttpStatus.OK);
+            return new ResponseEntity<>("AttendanceSchedule " + attendanceScheduleId + " was deleted!", HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Failed to delete AttendanceSchedule by id!", HttpStatus.INTERNAL_SERVER_ERROR);
