@@ -29,6 +29,17 @@ public class AttendanceScheduleController {
         }
     }
 
+    @RequestMapping("/getbyweek/{week}")
+    public ResponseEntity get_AttendanceScheduleByWeek (@PathVariable("week") String week){
+        try {
+            List<AttendanceSchedule>  attendanceSchedule = attendanceScheduleService.get_AttendanceScheduleByWeek(week);
+            return new ResponseEntity<>(attendanceSchedule , HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to get AttendanceSchedule by week!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @RequestMapping("/listbyregistrationid/{RegistrationId}")
     public ResponseEntity get_ListattendanceSchedulesByRegistrationId(@PathVariable("RegistrationId") Long registrationid){
         try {

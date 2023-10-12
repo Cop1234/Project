@@ -22,8 +22,7 @@ public interface RegistrationService {
     //GET BY ID
     Registration get_RegistrationById(Long id);
 
-    //Update
-    Registration update_Registration (Map<String,String> map) throws ParseException;
+
 
     //Delete
     void delet_Registration(Long id);

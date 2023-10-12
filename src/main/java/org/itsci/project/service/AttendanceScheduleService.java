@@ -19,6 +19,9 @@ public interface AttendanceScheduleService {
     //GET BY ID
     AttendanceSchedule get_AttendanceScheduleById(Long id);
 
+    //GET BY week
+    List<AttendanceSchedule> get_AttendanceScheduleByWeek(String id);
+
     //CREATE
     AttendanceSchedule add_AttendanceSchedule(Map<String,String> map) throws ParseException;
 

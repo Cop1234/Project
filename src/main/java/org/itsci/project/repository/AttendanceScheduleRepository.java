@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AttendanceScheduleRepository extends JpaRepository<AttendanceSchedule, Long> {
     List<AttendanceSchedule> findByRegistrationId(Long registrationid);
+    List<AttendanceSchedule> findByWeekNo(int week);
 }

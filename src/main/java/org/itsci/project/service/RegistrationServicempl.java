@@ -109,9 +109,9 @@ public class RegistrationServicempl implements RegistrationService {
             Registration registrations = new Registration();
             registrations.setSection(section_id);
             registrations.setUser(userUserid);
-            registrationRepository.save(registrations);
 
-        return null;
+
+        return   registrationRepository.save(registrations);
     }
 
     @Override
@@ -119,10 +119,6 @@ public class RegistrationServicempl implements RegistrationService {
         return registrationRepository.getReferenceById(id);
     }
 
-    @Override
-    public Registration update_Registration(Map<String, String> map) throws ParseException {
-        return null;
-    }
 
     @Override
     public void delet_Registration(Long id) {
