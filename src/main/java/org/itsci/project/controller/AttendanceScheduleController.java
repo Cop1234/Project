@@ -29,16 +29,28 @@ public class AttendanceScheduleController {
         }
     }
 
-    @RequestMapping("/getbyweek/{week}")
-    public ResponseEntity get_AttendanceScheduleByWeek (@PathVariable("week") String week){
+    @RequestMapping("/getbyweek/{week}/{secid}")
+    public ResponseEntity get_AttendanceScheduleByWeek (@PathVariable("week") String week,@PathVariable("secid") String secid){
         try {
-            List<AttendanceSchedule>  attendanceSchedule = attendanceScheduleService.get_AttendanceScheduleByWeek(week);
+            List<AttendanceSchedule>  attendanceSchedule = attendanceScheduleService.get_AttendanceScheduleByWeek(week,secid);
             return new ResponseEntity<>(attendanceSchedule , HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Failed to get AttendanceSchedule by week!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @RequestMapping("/get_AttendanceStudent/{week}/{secid}/{userID}")
+    public ResponseEntity get_ListAttendanceStudent (@PathVariable("week") String week,@PathVariable("secid") String secid ,@PathVariable("userID") String userID){
+        try {
+            List<AttendanceSchedule>  attendanceSchedule = attendanceScheduleService.get_AttendanceStudent(week,secid,userID);
+            return new ResponseEntity<>(attendanceSchedule , HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to get AttendanceSchedule by Student!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @RequestMapping("/listbyregistrationid/{RegistrationId}")
     public ResponseEntity get_ListattendanceSchedulesByRegistrationId(@PathVariable("RegistrationId") Long registrationid){

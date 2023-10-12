@@ -20,7 +20,10 @@ public interface AttendanceScheduleService {
     AttendanceSchedule get_AttendanceScheduleById(Long id);
 
     //GET BY week
-    List<AttendanceSchedule> get_AttendanceScheduleByWeek(String id);
+     List<AttendanceSchedule> get_AttendanceScheduleByWeek(String week,String secid);
+
+//    //GET BY week
+    List<AttendanceSchedule> get_AttendanceStudent(String week,String secid,String userID);
 
     //CREATE
     AttendanceSchedule add_AttendanceSchedule(Map<String,String> map) throws ParseException;

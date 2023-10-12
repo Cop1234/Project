@@ -43,8 +43,26 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
     }
 
     @Override
-    public List<AttendanceSchedule> get_AttendanceScheduleByWeek(String week) {
-        return attendanceScheduleRepository.findByWeekNo(Integer.parseInt(week));
+    public List<AttendanceSchedule> get_AttendanceScheduleByWeek(String week, String secid) {
+        System.out.println("Week: " + week + " Section ID: " + secid);
+
+        // ควรแปลง week เป็น Integer จาก String ก่อนใช้
+        int weekNo = Integer.parseInt(week);
+
+        // ควรแปลง secid เป็น Long จาก String ก่อนใช้
+        Long sectionId = Long.parseLong(secid);
+
+        return attendanceScheduleRepository.findByWeekNoAndRegistration_Section_Id(weekNo, sectionId);
+    }
+
+    @Override
+    public List<AttendanceSchedule> get_AttendanceStudent(String week, String secid,String userID) {
+        System.out.println("Week: " + week + " Section ID: " + secid+ " iduser: " + userID);
+        int weekNo = Integer.parseInt(week);
+        Long sectionId = Long.parseLong(secid);
+        Long idUser = Long.parseLong(userID);
+      return attendanceScheduleRepository.findByWeekNoAndRegistration_Section_IdAndRegistration_User_Id(weekNo,sectionId,idUser);
+
     }
 
     @Override
@@ -55,7 +73,7 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
         String status = map.get("status");
         int weekNoInt = Integer.parseInt(weekNo);
         long regIdLong = Long.parseLong(regId);
-        DateFormat Day = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        DateFormat Day = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date checkInTimeNow = Day.parse(checkInTime);
 
         Registration registration = registrationRepository.findById(regIdLong).orElse(null);
