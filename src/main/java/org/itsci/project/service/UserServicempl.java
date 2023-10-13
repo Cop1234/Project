@@ -64,6 +64,8 @@ public class UserServicempl implements UserService {
     //Add User teacher
     @Override
     public User add_Teacher(Map<String, String> map) throws ParseException {
+        String loginusername = map.get("logid");
+        String loginpassword = map.get("password");
          String userid = map.get("userid");
          String typeuser = "Teacher";
          String email = map.get("email");
@@ -74,14 +76,13 @@ public class UserServicempl implements UserService {
          Date birthdates = Day.parse(birthdate);
          String gender = map.get("gender");
 
-         String[] ps = birthdate.split("/");
-         String ps_day = ps[0];
-         String ps_month = ps[1];
-         String ps_year = ps[2];
+
+
+
         //Create new object
         Login login = new Login();
-        login.setUsername("MJU"+userid);
-        login.setPassword("MJU@"+ps_day+ps_month+ps_year);
+        login.setUsername(loginusername);
+        login.setPassword(loginpassword);
         loginRepository.save(login);
 
         Authority authority = null;
