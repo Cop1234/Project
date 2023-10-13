@@ -1,5 +1,6 @@
 package org.itsci.project.controller;
 
+import org.itsci.project.model.Login;
 import org.itsci.project.model.User;
 import org.itsci.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,7 @@ public class StudenController {
             return new ResponseEntity<>("Failed to update Teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     //getid
     @RequestMapping("/getbyid/{id}")
     public ResponseEntity get_Student (@PathVariable("id") String id){
@@ -86,6 +88,18 @@ public class StudenController {
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Failed to delete User by id!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @PutMapping("/updatepassword")
+    public ResponseEntity PasswordEncoder(@RequestBody Map<String,String> map) {
+        try {
+            Login login = userService.updatepassword_Student(map);
+            return new ResponseEntity<>(login, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to update Teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

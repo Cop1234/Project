@@ -46,34 +46,35 @@ public class RegistrationServicempl implements RegistrationService {
             String fname = row.getCell(1).getStringCellValue();
             String lname = row.getCell(2).getStringCellValue();
 
-
             Optional<Section> sectionOptional = sectionRepository.findById(Long.parseLong(id));
             Optional<User> userOptional = studentRepository.findByuserid(userid);
-            Optional<Registration> registrationOptional = registrationRepository.findByUser_Id(userOptional.map(User::getId).orElse(-1L));
 
-            if (sectionOptional.isPresent() && userOptional.isPresent() && registrationOptional.isPresent()) {
+            if (sectionOptional.isPresent() && userOptional.isPresent()) {
                 Section section_id = sectionOptional.get();
                 User userUserid = userOptional.get();
-                Registration registration = registrationOptional.get();
-                Long reg_idSec = registration.getSection().getId();
 
-                if (userUserid.getFname().equals(fname) && userUserid.getLname().equals(lname) && userUserid.getUserid().equals(userid)) {
-                    if (!reg_idSec.equals(section_id.getId())) {
-                        Registration registrations = new Registration();
-                        registrations.setSection(section_id);
-                        registrations.setUser(userUserid);
-                        registrationRepository.save(registrations);
+                // ตรวจสอบว่ารายการ Registration มีอยู่แล้วหรือไม่
+                Optional<Registration> registrationOptional = registrationRepository.findByUserAndSection(userUserid, section_id);
+
+                if (registrationOptional.isPresent()) {
+                    Registration registration = registrationOptional.get();
+                    Long reg_idSec = registration.getSection().getId();
+
+                    if (userUserid.getFname().equals(fname) && userUserid.getLname().equals(lname) && userUserid.getUserid().equals(userid)) {
+                        if (!reg_idSec.equals(section_id.getId())) {
+                            Registration registrations = new Registration();
+                            registrations.setSection(section_id);
+                            registrations.setUser(userUserid);
+                            registrationRepository.save(registrations);
+                        }
+                    } else {
+                        System.out.println("Mismatch in user details for userid: " + userid);
                     }
                 } else {
-                    System.out.println("Mismatch in user details for userid: " + userid);
+                    System.out.println("Registration for user: " + userid + " and section: " + section_id.getId() + " already exists.");
                 }
             } else {
-                User userUserid = userOptional.get();
-                Section section_id = sectionOptional.get();
-                Registration registrations = new Registration();
-                registrations.setSection(section_id);
-                registrations.setUser(userUserid);
-                registrationRepository.save(registrations);
+                System.out.println("Section or user not found for user: " + userid);
             }
             rowNum++;
         }

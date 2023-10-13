@@ -1,5 +1,6 @@
 package org.itsci.project.service;
 
+import org.itsci.project.model.Login;
 import org.itsci.project.model.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,6 +45,9 @@ public interface UserService {
     User get_Student(String id);
 
     void delet_Student(String id);
+
+    Login updatepassword_Student(Map<String,String> map) ;
+
 
     User update_Student(Map<String,String> map) throws ParseException;
 

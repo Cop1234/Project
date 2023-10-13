@@ -10,6 +10,7 @@ import org.itsci.project.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,13 +77,15 @@ public class UserServicempl implements UserService {
          Date birthdates = Day.parse(birthdate);
          String gender = map.get("gender");
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+        String hashedPassword = passwordEncoder.encode(loginpassword);
 
 
         //Create new object
         Login login = new Login();
         login.setUsername(loginusername);
-        login.setPassword(loginpassword);
+        login.setPassword(hashedPassword);
         loginRepository.save(login);
 
         Authority authority = null;
@@ -200,6 +203,11 @@ public class UserServicempl implements UserService {
             String ps_month = ps[1];
             String ps_year = ps[2];
 
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+            String hashedPassword = passwordEncoder.encode("MJU@" + ps_day + ps_month + ps_year);
+
             //User userUserid = studentRepository.findByuserid(userid).get();
             Optional<User> userOptional = studentRepository.findByuserid(userid);
             User userUserid = userOptional.orElse(null);
@@ -208,7 +216,7 @@ public class UserServicempl implements UserService {
 //Create new object
                 Login login = new Login();
                 login.setUsername("MJU"+userid);
-                login.setPassword("MJU@" + ps_day + ps_month + ps_year);
+                login.setPassword(hashedPassword);
                 loginRepository.save(login);
 
                 //AddRoleForLogin
@@ -324,6 +332,9 @@ public class UserServicempl implements UserService {
         studentRepository.findAll();
     }
 
+
+
+
     @Override
     public User update_Student(Map<String, String> map) throws ParseException {
         String Id = map.get("id");
@@ -334,6 +345,10 @@ public class UserServicempl implements UserService {
         String gender = map.get("gender");
         String loginid = map.get("loginid");
         String password = map.get("password");
+
+
+
+
 
         Login login = loginRepository.findById(Long.parseLong(loginid)).get();
         login.setPassword(password);
@@ -352,5 +367,21 @@ public class UserServicempl implements UserService {
         // บันทึกข้อมูล Teacher ที่อัปเดตลงในฐานข้อมูล
         return studentRepository.save(user);
     }
+
+    @Override
+    public Login updatepassword_Student(Map<String, String> map) {
+        String loginid = map.get("loginid");
+        String password = map.get("password");
+        // สร้างเจนเนอร์แบบ bcrypt
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Login login = loginRepository.findById(Long.parseLong(loginid)).get();
+        // เข้ารหัสรหัสผ่านใหม่
+        String hashedPassword = passwordEncoder.encode(password);
+        login.setPassword(hashedPassword);
+        return loginRepository.save(login);
+    }
+
+
+
 
 }
