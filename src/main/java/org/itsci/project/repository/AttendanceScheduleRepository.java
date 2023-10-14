@@ -9,6 +9,4 @@ public interface AttendanceScheduleRepository extends JpaRepository<AttendanceSc
     List<AttendanceSchedule> findByRegistrationId(Long registrationid);
     List<AttendanceSchedule> findByWeekNoAndRegistration_Section_Id(int week, Long sectionId);
     List<AttendanceSchedule> findByWeekNoAndRegistration_Section_IdAndRegistration_User_Id(int week, Long sectionId, Long idUser);
-
-
 }

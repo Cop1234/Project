@@ -93,15 +93,17 @@ public class StudenController {
 
 
     @PutMapping("/updatepassword")
-    public ResponseEntity PasswordEncoder(@RequestBody Map<String,String> map) {
+    public ResponseEntity PasswordEncoderStudent(@RequestBody Map<String,String> map) {
         try {
-            Login login = userService.updatepassword_Student(map);
+            Login login = userService.do_updateStudentProfile(map);
             return new ResponseEntity<>(login, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>("Failed to update Teacher!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
 
 }

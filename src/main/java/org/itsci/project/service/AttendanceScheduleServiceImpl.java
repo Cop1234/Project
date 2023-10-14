@@ -45,13 +45,8 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
     @Override
     public List<AttendanceSchedule> get_AttendanceScheduleByWeek(String week, String secid) {
         System.out.println("Week: " + week + " Section ID: " + secid);
-
-        // ควรแปลง week เป็น Integer จาก String ก่อนใช้
         int weekNo = Integer.parseInt(week);
-
-        // ควรแปลง secid เป็น Long จาก String ก่อนใช้
         Long sectionId = Long.parseLong(secid);
-
         return attendanceScheduleRepository.findByWeekNoAndRegistration_Section_Id(weekNo, sectionId);
     }
 
@@ -62,7 +57,6 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
         Long sectionId = Long.parseLong(secid);
         Long idUser = Long.parseLong(userID);
       return attendanceScheduleRepository.findByWeekNoAndRegistration_Section_IdAndRegistration_User_Id(weekNo,sectionId,idUser);
-
     }
 
     @Override

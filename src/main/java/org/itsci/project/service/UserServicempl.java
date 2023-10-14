@@ -67,7 +67,7 @@ public class UserServicempl implements UserService {
     public User add_Teacher(Map<String, String> map) throws ParseException {
         String loginusername = map.get("logid");
         String loginpassword = map.get("password");
-         String userid = map.get("userid");
+         String userid = null;
          String typeuser = "Teacher";
          String email = map.get("email");
          String fname = map.get("fname");
@@ -133,12 +133,6 @@ public class UserServicempl implements UserService {
         String lastName = map.get("lname");
         String birthdate = map.get("birthdate");
         String gender = map.get("gender");
-        String loginid = map.get("loginid");
-        String password = map.get("password");
-
-        Login login = loginRepository.findById(Long.parseLong(loginid)).get();
-        login.setPassword(password);
-        loginRepository.save(login);
 
         // ค้นหา Teacher ที่ต้องการอัปเดต
         User user = teacherRepository.findById(Id).get();
@@ -261,7 +255,7 @@ public class UserServicempl implements UserService {
                 //Create new object
                 Login login = new Login();
                 login.setUsername("MJU"+userid);
-                login.setPassword("MJU@" + ps_day + ps_month + ps_year);
+                login.setPassword(hashedPassword);
                 loginRepository.save(login);
 
                 //AddRoleForLogin
@@ -343,17 +337,6 @@ public class UserServicempl implements UserService {
         String lastName = map.get("lname");
         String birthdate = map.get("birthdate");
         String gender = map.get("gender");
-        String loginid = map.get("loginid");
-        String password = map.get("password");
-
-
-
-
-
-        Login login = loginRepository.findById(Long.parseLong(loginid)).get();
-        login.setPassword(password);
-        loginRepository.save(login);
-
         // ค้นหา Teacher ที่ต้องการอัปเดต
         User user = studentRepository.findById(Id).get();
         user.setEmail(email);
@@ -369,7 +352,7 @@ public class UserServicempl implements UserService {
     }
 
     @Override
-    public Login updatepassword_Student(Map<String, String> map) {
+    public Login do_updateStudentProfile(Map<String, String> map) {
         String loginid = map.get("loginid");
         String password = map.get("password");
         // สร้างเจนเนอร์แบบ bcrypt
@@ -382,6 +365,19 @@ public class UserServicempl implements UserService {
     }
 
 
+
+    @Override
+    public Login UpdateTeacherProfile(Map<String, String> map) {
+        String loginid = map.get("loginid");
+        String password = map.get("password");
+        // สร้างเจนเนอร์แบบ bcrypt
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Login login = loginRepository.findById(Long.parseLong(loginid)).get();
+        // เข้ารหัสรหัสผ่านใหม่
+        String hashedPassword = passwordEncoder.encode(password);
+        login.setPassword(hashedPassword);
+        return loginRepository.save(login);
+    }
 
 
 }

@@ -8,6 +8,7 @@ import org.itsci.project.repository.LoginRepository;
 import org.itsci.project.repository.TeacherRepository;
 import org.itsci.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.sql.RowSet;
@@ -76,11 +77,10 @@ public class LoginServiceImpl implements LoginService{
     public Login do_Login(Map<String,String> map) {
         String username = map.get("username");
         String password = map.get("password");
-
         //Check username
         Login login = loginRepository.getLoginByUsernameEquals(username);
-
-        if (login != null && login.getPassword().equals(password)){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (login != null && passwordEncoder.matches(password, login.getPassword())){
             return login;
         }else {
             return null;

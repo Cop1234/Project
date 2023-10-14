@@ -46,8 +46,9 @@ public interface UserService {
 
     void delet_Student(String id);
 
-    Login updatepassword_Student(Map<String,String> map) ;
+    Login do_updateStudentProfile(Map<String,String> map) ;
 
+    Login UpdateTeacherProfile(Map<String,String> map) ;
 
     User update_Student(Map<String,String> map) throws ParseException;
 
