@@ -192,6 +192,7 @@ public class UserServicempl implements UserService {
             Date birthdates = Day.parse(birthdate);
             String gender = row.getCell(5).getStringCellValue();
 
+
             String[] ps = birthdate.split("/");
             String ps_day = ps[0];
             String ps_month = ps[1];
