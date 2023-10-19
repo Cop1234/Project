@@ -19,10 +19,10 @@ public interface AttendanceScheduleService {
     //GET BY ID
     AttendanceSchedule get_AttendanceScheduleById(Long id);
 
-    //GET BY week
-     List<AttendanceSchedule> get_AttendanceScheduleByWeek(String week,String secid);
+    //GET BY week for Teacher
+    List<AttendanceSchedule> get_AttendanceScheduleByWeek(String week,String secid);
 
-//    //GET BY week
+    //GET BY week for Student
     List<AttendanceSchedule> get_AttendanceStudent(String week,String secid,String userID);
 
     //CREATE

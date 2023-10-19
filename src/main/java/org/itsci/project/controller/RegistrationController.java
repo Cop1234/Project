@@ -25,6 +25,17 @@ public class RegistrationController {
     @Autowired
     RegistrationService registrationService;
 
+    //listRegistration
+    @RequestMapping("/list")
+    public ResponseEntity get_ListRegistration (){
+        try {
+            List<Registration> registrations = registrationService.get_ListRegistration();
+            return new ResponseEntity<>(registrations , HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to list Registration!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     //Teacher : Import_Student
     @PostMapping("/upload")
@@ -89,9 +100,6 @@ public class RegistrationController {
             return new ResponseEntity<>("Failed to list student!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
 
     @RequestMapping("/do_update")
     public ResponseEntity do_update(@RequestBody Map<String,String> map){

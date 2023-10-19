@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,6 +26,11 @@ public class RegistrationServicempl implements RegistrationService {
     private RegistrationRepository registrationRepository;
     @Autowired
     private SectionRepository sectionRepository;
+
+    @Override
+    public List<Registration> get_ListRegistration() {
+        return registrationRepository.findAll();
+    }
 
     @Override
     public void Import_Student(MultipartFile file, String id) throws IOException {

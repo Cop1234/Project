@@ -24,6 +24,7 @@ public class Registration {
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)
 	@JoinColumn(name = "sectionID",referencedColumnName = "id")
+	@JsonIgnoreProperties("registrations")
 	private Section section;
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)

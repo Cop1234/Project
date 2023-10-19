@@ -1,5 +1,6 @@
 package org.itsci.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -41,5 +43,8 @@ public class Section implements Serializable {
 	@JoinColumn(name="roomid", nullable=false)
 	private Room room;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "section", cascade = CascadeType.REMOVE)
+	private List<Registration> registrations;
 
 }
