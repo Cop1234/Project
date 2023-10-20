@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -110,4 +111,22 @@ public class AttendanceScheduleController {
             return new ResponseEntity<>("Failed to delete AttendanceSchedule by id!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/updatestastus")
+    public ResponseEntity update_AttendanceSchedules(@RequestBody List<Map<String, String>> scheduleList) {
+        try {
+            List<AttendanceSchedule> updatedSchedules = new ArrayList<>();
+
+            for (Map<String, String> map : scheduleList) {
+                AttendanceSchedule update_attendanceschedule = attendanceScheduleService.update_AttendanceStatus(map);
+                updatedSchedules.add(update_attendanceschedule);
+            }
+
+            return new ResponseEntity<>(updatedSchedules, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to update AttendanceSchedules!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
@@ -118,5 +119,18 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
         AttendanceSchedule Id = attendanceScheduleRepository.getReferenceById(id);
         attendanceScheduleRepository.delete(Id);
         attendanceScheduleRepository.findAll();
+    }
+
+    @Override
+    public AttendanceSchedule update_AttendanceStatus(Map<String, String> map) {
+        String attenid = map.get("id");
+        String status = map.get("status");
+
+        Optional<AttendanceSchedule> attendanceScheduleOptional = attendanceScheduleRepository.findById(Long.parseLong(attenid));
+        AttendanceSchedule attendanceSchedule = attendanceScheduleOptional.get();
+        attendanceSchedule.setStatus(status);
+        // บันทึกการเปลี่ยนแปลงและคืนค่า AttendanceSchedule ที่อัพเดตแล้ว
+        return attendanceScheduleRepository.save(attendanceSchedule);
+
     }
 }

@@ -33,4 +33,9 @@ public interface AttendanceScheduleService {
 
     //Delete
     void delet_AttendanceSchedule(Long id);
+
+    //CREATE
+    AttendanceSchedule update_AttendanceStatus(Map<String,String> map);
+
+
 }
