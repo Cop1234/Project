@@ -40,7 +40,7 @@ public class SectionController {
     }
 
     @RequestMapping("/getbyid/{id}")
-    public ResponseEntity get_SectionById (@PathVariable("id") Long id){
+    public ResponseEntity get_ListClassByUserid (@PathVariable("id") Long id){
         try {
             Section section = sectionService.get_SectionById(id);
             return new ResponseEntity<>(section , HttpStatus.OK);
@@ -51,7 +51,7 @@ public class SectionController {
     }
 
     @RequestMapping("/add")
-    public ResponseEntity add_Section (@RequestBody Map<String,String> map){
+    public ResponseEntity add_Course (@RequestBody Map<String,String> map){
         try {
             Section section = sectionService.add_Section(map);
             return new ResponseEntity<>(section, HttpStatus.OK);

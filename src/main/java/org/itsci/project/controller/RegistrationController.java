@@ -39,7 +39,7 @@ public class RegistrationController {
 
     //Teacher : Import_Student
     @PostMapping("/upload")
-    public ResponseEntity uploadExcelFile(@RequestParam("file") MultipartFile file,@RequestParam("id") String id) {
+    public ResponseEntity importSudent(@RequestParam("file") MultipartFile file,@RequestParam("id") String id) {
         try {
             System.out.println("FILE NAME IS : " + file.getOriginalFilename());
             registrationService.Import_Student(file,id);
