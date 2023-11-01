@@ -93,7 +93,7 @@ public class StudenController {
 
 
     @PutMapping("/updatepassword")
-    public ResponseEntity PasswordEncoderStudent(@RequestBody Map<String,String> map) {
+    public ResponseEntity UpdatePasswordStudent(@RequestBody Map<String,String> map) {
         try {
             Login login = userService.do_updateStudentProfile(map);
             return new ResponseEntity<>(login, HttpStatus.OK);
