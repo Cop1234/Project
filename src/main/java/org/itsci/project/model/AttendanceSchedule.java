@@ -28,10 +28,13 @@ public class AttendanceSchedule {
 	@JsonIgnoreProperties("attendanceSchedules")
 	private Registration registration;
 
+	@Column(nullable = false)
 	private int weekNo;
 
+	@Column(nullable = false)
 	private Date checkInTime;
 
+	@Column(nullable = false)
 	private String status;
 
 }

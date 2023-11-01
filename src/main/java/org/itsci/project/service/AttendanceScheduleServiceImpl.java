@@ -36,8 +36,6 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
         return attendanceSchedules;
     }
 
-
-
     @Override
     public AttendanceSchedule get_AttendanceScheduleById(Long id) {
         return attendanceScheduleRepository.getReferenceById(id);

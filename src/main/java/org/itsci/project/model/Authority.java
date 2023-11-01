@@ -21,6 +21,8 @@ public class Authority {
 
 	@Id
 	private Long id;
+
+	@Column(nullable = false)
 	private String role;
 
 	@JsonBackReference

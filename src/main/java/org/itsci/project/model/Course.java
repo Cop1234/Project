@@ -28,8 +28,10 @@ public class Course  implements Serializable {
 	@JoinColumn(name = "userID")
 	private User user;
 
+	@Column(nullable = false)
 	private int term;
 
+	@Column(nullable = false)
 	private int semester;
 
 	

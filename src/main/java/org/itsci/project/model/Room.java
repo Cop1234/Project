@@ -18,9 +18,16 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
+	@Column(nullable = false)
 	private String roomName;
+
+	@Column(nullable = false)
 	private String building;
+
+	@Column(nullable = false)
 	private double latitude;
+
+	@Column(nullable = false)
 	private double longitude;
 
 }

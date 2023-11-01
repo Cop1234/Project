@@ -18,11 +18,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 	private String userid;
+
+	@Column(nullable = false)
 	private String typeuser;
+
+	@Column(unique = true, nullable = false)
 	private String email;
+
+	@Column(nullable = false)
 	private String fname;
+
+	@Column(nullable = false)
 	private String lname;
+
+	@Column(nullable = false)
 	private Date birthdate;
+
+	@Column(nullable = false)
 	private String gender;
 
 	@OneToOne(cascade = CascadeType.ALL, optional = false)

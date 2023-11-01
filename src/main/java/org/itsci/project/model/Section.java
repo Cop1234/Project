@@ -26,9 +26,16 @@ public class Section implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
+	@Column(nullable = false)
 	private LocalTime startTime;
+
+	@Column(nullable = false)
 	private int duration;
+
+	@Column(nullable = false)
 	private String sectionNumber;
+
+	@Column(nullable = false)
 	private String type;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, optional = false)

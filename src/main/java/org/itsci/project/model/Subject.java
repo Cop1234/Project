@@ -23,9 +23,15 @@ public class Subject {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	private Long id;
 
+	@Column(nullable = false)
 	private String subjectId;
+
+	@Column(nullable = false)
 	private String subjectName;
+
 	private String detail;
+
+	@Column(nullable = false)
 	private int credit;
 
 }
