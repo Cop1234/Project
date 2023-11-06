@@ -84,7 +84,7 @@ public class RegistrationServicempl implements RegistrationService {
     @Override
     public List<Registration> do_getViewStudent(String idsection) {
         Long id = Long.parseLong(idsection);
-        return registrationRepository.findBySectionId(id);
+        return registrationRepository.findBySectionIdOrderByUserId(id);
     }
 
     @Override

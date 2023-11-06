@@ -65,8 +65,8 @@ public class UserServicempl implements UserService {
     //Add User teacher
     @Override
     public User add_Teacher(Map<String, String> map) throws ParseException {
-        String loginusername = map.get("logid");
-        String loginpassword = map.get("password");
+        String loginusername = map.get("email");
+        String loginpassword = "MJU@123456";
          String userid = null;
          String typeuser = "Teacher";
          String email = map.get("email");
@@ -184,13 +184,15 @@ public class UserServicempl implements UserService {
 
             String userid = row.getCell(0).getStringCellValue();
             String typeuser = "Student";
-            String email = row.getCell(1).getStringCellValue();
-            String fname = row.getCell(2).getStringCellValue();
-            String lname = row.getCell(3).getStringCellValue();
+
+            String fname = row.getCell(1).getStringCellValue();
+            String lname = row.getCell(2).getStringCellValue();
             DateFormat Day = new SimpleDateFormat("dd/MM/yyyy");
-            String birthdate = row.getCell(4).getStringCellValue();
+            String birthdate = row.getCell(3).getStringCellValue();
             Date birthdates = Day.parse(birthdate);
-            String gender = row.getCell(5).getStringCellValue();
+            String gender = row.getCell(4).getStringCellValue();
+
+            String email = "MJU"+userid+"@mju.ac.th";
 
 
             String[] ps = birthdate.split("/");

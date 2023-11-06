@@ -11,7 +11,8 @@ import java.util.Optional;
 
 public interface RegistrationRepository extends JpaRepository<Registration,Long> {
     List<Registration> findByUserId(Long id);
-    List<Registration> findBySectionId(Long SectionId);
+
+    List<Registration> findBySectionIdOrderByUserId(Long SectionId);
     Optional<Registration> findById(Long id);
 
 //    Optional<Registration> findByUserAndSection(Long id);

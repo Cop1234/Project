@@ -32,7 +32,7 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
 
     @Override
     public List<AttendanceSchedule> get_ListAttendanceScheduleByRegistrationId(Long registrationid) {
-        List<AttendanceSchedule> attendanceSchedules = attendanceScheduleRepository.findByRegistrationId(registrationid);
+        List<AttendanceSchedule> attendanceSchedules = attendanceScheduleRepository.findByRegistrationIdOrderByWeekNo(registrationid);
         return attendanceSchedules;
     }
 
@@ -46,7 +46,7 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
         System.out.println("Week: " + week + " Section ID: " + secid);
         int weekNo = Integer.parseInt(week);
         Long sectionId = Long.parseLong(secid);
-        return attendanceScheduleRepository.findByWeekNoAndRegistration_Section_Id(weekNo, sectionId);
+        return attendanceScheduleRepository.findByWeekNoAndRegistration_Section_IdOrderByRegistration_User_Id(weekNo, sectionId);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
         int weekNo = Integer.parseInt(week);
         Long sectionId = Long.parseLong(secid);
         Long idUser = Long.parseLong(userID);
-      return attendanceScheduleRepository.findByWeekNoAndRegistration_Section_IdAndRegistration_User_Id(weekNo,sectionId,idUser);
+      return attendanceScheduleRepository.findByWeekNoAndRegistration_Section_IdAndRegistration_User_IdOrderByRegistration_User_Id(weekNo,sectionId,idUser);
     }
 
     @Override
