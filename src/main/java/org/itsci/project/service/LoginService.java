@@ -15,9 +15,6 @@ public interface LoginService {
     //CREATE
     Login add_Login(Map<String,String> map);
 
-    //Update
-    Login update_Login (Login login);
-
     //Delete
     void delet_Login(String id);
 
@@ -29,5 +26,8 @@ public interface LoginService {
 
     //AddRole
     Login addRoleToLogin(Long id, Long userId);
+
+    //ChangePassword
+    Login change_Password(Map<String,String> map);
 
 }

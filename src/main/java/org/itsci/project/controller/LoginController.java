@@ -85,7 +85,6 @@ public class LoginController {
         }
     }
 
-
     @PostMapping("/do_login")
     public ResponseEntity do_Login(@RequestBody Map<String,String> map){
         try {
@@ -101,5 +100,18 @@ public class LoginController {
         }
     }
 
-
+    @PostMapping("/change_password")
+    public ResponseEntity change_Password(@RequestBody Map<String,String> map){
+        try {
+            Login login = loginService.change_Password(map);
+            if (login != null){
+                return new ResponseEntity<>(login, HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>("Check Password Failed!", HttpStatus.CONFLICT);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to Check Password!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

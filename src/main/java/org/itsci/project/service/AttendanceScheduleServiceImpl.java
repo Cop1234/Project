@@ -37,6 +37,12 @@ public class AttendanceScheduleServiceImpl implements AttendanceScheduleService{
     }
 
     @Override
+    public AttendanceSchedule get_AttendanceScheduleCheckScan(Long registrationid, String week) {
+        int weekNo = Integer.parseInt(week);
+        return attendanceScheduleRepository.findByRegistrationIdAndWeekNo(registrationid,weekNo);
+    }
+
+    @Override
     public AttendanceSchedule get_AttendanceScheduleById(Long id) {
         return attendanceScheduleRepository.getReferenceById(id);
     }

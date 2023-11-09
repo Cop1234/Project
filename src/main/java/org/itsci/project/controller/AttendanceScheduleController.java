@@ -76,6 +76,17 @@ public class AttendanceScheduleController {
         }
     }
 
+    @RequestMapping("/checkscanned/{regId}/{weekNo}")
+    public ResponseEntity get_AttendanceScheduleById (@PathVariable("regId") Long regId,@PathVariable("weekNo") String weekNo){
+        try {
+            AttendanceSchedule attendanceSchedule = attendanceScheduleService.get_AttendanceScheduleCheckScan(regId,weekNo);
+            return new ResponseEntity<>(attendanceSchedule , HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to get AttendanceSchedule by RegId and Week!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @RequestMapping("/add")
     public ResponseEntity add_AttendanceSchedule (@RequestBody Map<String,String> map){
         try {

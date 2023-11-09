@@ -59,11 +59,6 @@ public class LoginServiceImpl implements LoginService{
     }
 
     @Override
-    public Login update_Login(Login login) {
-        return null;
-    }
-
-    @Override
     public void delet_Login(String id) {
 
     }
@@ -78,6 +73,19 @@ public class LoginServiceImpl implements LoginService{
         String username = map.get("username");
         String password = map.get("password");
         //Check username
+        Login login = loginRepository.getLoginByUsernameEquals(username);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (login != null && passwordEncoder.matches(password, login.getPassword())){
+            return login;
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public Login change_Password(Map<String, String> map) {
+        String username = map.get("username");
+        String password = map.get("password");
         Login login = loginRepository.getLoginByUsernameEquals(username);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (login != null && passwordEncoder.matches(password, login.getPassword())){

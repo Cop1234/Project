@@ -17,6 +17,9 @@ public interface AttendanceScheduleService {
     List<AttendanceSchedule> get_ListAttendanceScheduleByRegistrationId(Long registrationid);
 
     //GET BY ID
+    AttendanceSchedule get_AttendanceScheduleCheckScan(Long registrationid, String week);
+
+    //GET BY ID
     AttendanceSchedule get_AttendanceScheduleById(Long id);
 
     //GET BY week for Teacher
